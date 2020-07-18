@@ -70,7 +70,7 @@ public class ArticleListBean {
         this.total = total;
     }
 
-    public List<ArticleBean> getDatas() {
+    public List<ArticleBean> getArticleList() {
         return datas;
     }
 

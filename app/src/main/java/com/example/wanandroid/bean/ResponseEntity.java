@@ -2,7 +2,7 @@ package com.example.wanandroid.bean;
 
 public class ResponseEntity<T> {
     private int errorCode;
-    private int errorMsg;
+    private String errorMsg;
     private T data;
 
     public int getErrorCode() {
@@ -13,11 +13,11 @@ public class ResponseEntity<T> {
         this.errorCode = errorCode;
     }
 
-    public int getErrorMsg() {
+    public String getErrorMsg() {
         return errorMsg;
     }
 
-    public void setErrorMsg(int errorMsg) {
+    public void setErrorMsg(String errorMsg) {
         this.errorMsg = errorMsg;
     }
 

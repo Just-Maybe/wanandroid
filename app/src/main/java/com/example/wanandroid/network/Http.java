@@ -1,7 +1,7 @@
-package com.example.wanandroid.ui.network;
+package com.example.wanandroid.network;
 
 import com.example.wanandroid.WanandroidApplication;
-import com.example.wanandroid.ui.utils.LogUtil;
+import com.example.wanandroid.utils.LogUtils;
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
@@ -9,7 +9,6 @@ import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersisto
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
-import dagger.Module;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -30,7 +29,7 @@ public class Http {
     private static Retrofit retrofit;
 
     private static void initOkHttpClient() {
-        File httpCacheDirectory = new File(WanandroidApplication.getContext().getCacheDir(), WanandroidApplication.getContext()
+        File httpCacheDirectory = new File(WanandroidApplication.getContext().getExternalCacheDir(), WanandroidApplication.getContext()
                 .getApplicationContext().getPackageName());
         int cacheSize = 10 * 1024 * 1024; // 10 MiB
         Cache cache = new Cache(httpCacheDirectory, cacheSize);
@@ -42,7 +41,9 @@ public class Http {
         builder.retryOnConnectionFailure(true);//错误重连
         builder.cookieJar(new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(WanandroidApplication.getContext())));
 
-        if (LogUtil.DEBUG) {
+        if (LogUtils.DEBUG) {
+            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
             builder.addInterceptor(new HttpLoggingInterceptor());
         }
         client = builder.build();
@@ -55,8 +56,11 @@ public class Http {
                 .build();
     }
 
-    public <T> T createApi(Class<T> tClass) {
+    private static <T> T createApi(Class<T> tClass) {
         return retrofit.create(tClass);
     }
 
+    public static WanandroidApi getApi() {
+        return createApi(WanandroidApi.class);
+    }
 }

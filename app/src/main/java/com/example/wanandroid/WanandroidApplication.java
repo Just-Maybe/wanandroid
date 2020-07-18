@@ -3,11 +3,17 @@ package com.example.wanandroid;
 import android.app.Application;
 import android.content.Context;
 
-import dagger.hilt.android.HiltAndroidApp;
+import com.example.wanandroid.database.AppDatabase;
 
 public class WanandroidApplication extends Application {
 
     public static Context applicationContext;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        AppDatabase.getInstance(this);
+    }
 
     @Override
     protected void attachBaseContext(Context base) {

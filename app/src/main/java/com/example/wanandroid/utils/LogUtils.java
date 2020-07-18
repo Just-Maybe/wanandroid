@@ -1,8 +1,8 @@
-package com.example.wanandroid.ui.utils;
+package com.example.wanandroid.utils;
 
 import android.util.Log;
 
-public class LogUtil {
+public class LogUtils {
     public static final boolean DEBUG = true;
 
     public static void i(String tag, String msg) {

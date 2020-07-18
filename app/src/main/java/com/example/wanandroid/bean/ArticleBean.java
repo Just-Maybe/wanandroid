@@ -1,7 +1,13 @@
 package com.example.wanandroid.bean;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.util.List;
 
+@Entity(tableName = "article_tb")
 public class ArticleBean {
 
     /**
@@ -38,6 +44,10 @@ public class ArticleBean {
      * visible : 1
      * zan : 0
      */
+    @NonNull
+    @PrimaryKey
+    @ColumnInfo(name = "id")
+    private int id;
 
     private String apkLink;
     private int audit;
@@ -51,7 +61,6 @@ public class ArticleBean {
     private String descMd;
     private String envelopePic;
     private boolean fresh;
-    private int id;
     private String link;
     private String niceDate;
     private String niceShareDate;
