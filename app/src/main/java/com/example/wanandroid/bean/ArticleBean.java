@@ -79,7 +79,7 @@ public class ArticleBean {
     private int userId;
     private int visible;
     private int zan;
-    private List<?> tags;
+    private List<TagBean> tags;
 
     public String getApkLink() {
         return apkLink;
@@ -329,12 +329,37 @@ public class ArticleBean {
         this.zan = zan;
     }
 
-    public List<?> getTags() {
+    public List<TagBean> getTags() {
         return tags;
     }
 
-    public void setTags(List<?> tags) {
+    public void setTags(List<TagBean> tags) {
         this.tags = tags;
     }
 
+    public class TagBean{
+
+        /**
+         * name : 公众号
+         * url : /wxarticle/list/408/1
+         */
+        private String name;
+        private String url;
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+    }
 }

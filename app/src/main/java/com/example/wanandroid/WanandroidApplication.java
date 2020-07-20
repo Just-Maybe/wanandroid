@@ -24,4 +24,6 @@ public class WanandroidApplication extends Application {
     public static Context getContext() {
         return applicationContext;
     }
+
+
 }

@@ -23,13 +23,15 @@ import io.reactivex.disposables.Disposable;
 
 public class ArticleViewModel extends ViewModel {
     private static final String TAG = ArticleViewModel.class.getSimpleName();
+    private static final int START_PAGE = 0;
     private MutableLiveData<List<ArticleBean>> dataList;
+    private int page = 0;
 
     public ArticleViewModel() {
-        dataList=  new MutableLiveData<>();
+        dataList = new MutableLiveData<>();
     }
 
-    public void getArticleListFromNetwork(int page) {
+    public void getArticleListFromNetwork() {
         Http.getApi().getArticleList(page)
                 .compose(RxUtils.rxSchedulerHelper())
                 .subscribe(new Observer<ResponseEntity<ArticleListBean>>() {
@@ -40,8 +42,13 @@ public class ArticleViewModel extends ViewModel {
 
                     @Override
                     public void onNext(ResponseEntity<ArticleListBean> response) {
-                        if(response.getData()!=null&&response.getData().getSize()>0){
-                            dataList.setValue(response.getData().getArticleList());
+                        if (response.getData() != null && response.getData().getSize() > 0) {
+                            if (page == START_PAGE) {
+                                dataList.setValue(response.getData().getArticleList());
+                            } else {
+                                dataList.getValue().addAll(response.getData().getArticleList());
+                                dataList.postValue(dataList.getValue());
+                            }
                         }
                     }
 
@@ -52,9 +59,12 @@ public class ArticleViewModel extends ViewModel {
 
                     @Override
                     public void onComplete() {
-
+                        page++;
                     }
                 });
     }
 
+    public MutableLiveData<List<ArticleBean>> getData() {
+        return dataList;
+    }
 }

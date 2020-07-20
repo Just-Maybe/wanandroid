@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.example.wanandroid.bean.ArticleBean" />
+
+        <import type="android.view.View" />
+
+        <import type="com.example.wanandroid.utils.DateUtils" />
+
+        <import type="com.example.wanandroid.utils.StringUtils" />
+
+        <variable
+            name="article"
+            type="ArticleBean" />
+    </data>
+
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_margin="10dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@{article.title}"
+                android:textColor="@color/color_222222"
+                android:textSize="17sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/tv_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="@{article.author}"
+                android:textColor="@color/color_666666"
+                android:textSize="15sp"
+                tools:text="123123"
+                android:visibility="@{StringUtils.isEmpty(article.author)? View.GONE:View.VISIBLE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent" />
+
+            <!--            一级分类        -->
+            <TextView
+                android:id="@+id/tv_super_chapter_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="123123"
+                android:layout_marginLeft="10dp"
+                android:text="@{article.superChapterName}"
+                android:textColor="@color/color_666666"
+                android:textSize="15sp"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/tv_author" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="15dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginBottom="2dp"
+                android:background="@color/color_666666"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_super_chapter_name"
+                app:layout_constraintLeft_toRightOf="@+id/tv_super_chapter_name" />
+
+            <!--     二级分类-->
+            <TextView
+                android:id="@+id/tv_chapter_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                tools:text="123123"
+                android:layout_marginRight="10dp"
+                android:text="@{article.chapterName}"
+                android:textColor="@color/color_666666"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_super_chapter_name"
+                app:layout_constraintLeft_toRightOf="@+id/tv_super_chapter_name" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="@{DateUtils.getTimeDistance(article.publishTime)}"
+                android:textColor="@color/color_666666"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintLeft_toRightOf="@+id/tv_chapter_name" />
+
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/cb_collection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:checked="@{article.collect}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

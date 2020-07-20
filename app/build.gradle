@@ -26,6 +26,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -42,6 +45,7 @@ dependencies {
 
     implementation "androidx.room:room-compiler:2.1.0"
     implementation "androidx.room:room-runtime:2.1.0"
+    annotationProcessor "android.arch.persistence.room:compiler:2.1.0"
 
     implementation 'com.squareup.okhttp3:okhttp:3.14.9'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.14.9'
