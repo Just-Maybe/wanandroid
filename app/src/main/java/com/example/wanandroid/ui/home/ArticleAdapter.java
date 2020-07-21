@@ -1,5 +1,7 @@
 package com.example.wanandroid.ui.home;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.wanandroid.R;
 import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.databinding.ItemArticleBinding;
+import com.example.wanandroid.ui.article_detail.ArticleWebViewActivity;
 
 /**
  * Created by Miracle on 2020/7/20
@@ -21,8 +24,11 @@ import com.example.wanandroid.databinding.ItemArticleBinding;
  * Describe:
  */
 public class ArticleAdapter extends ListAdapter<ArticleBean, ArticleAdapter.ArticleViewHolder> {
-    protected ArticleAdapter() {
+    private Context context;
+
+    protected ArticleAdapter(Context context) {
         super(new ArticleDiffCallback());
+        this.context = context;
     }
 
     @NonNull
@@ -52,7 +58,10 @@ public class ArticleAdapter extends ListAdapter<ArticleBean, ArticleAdapter.Arti
             binding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    Intent intent = new Intent(context, ArticleWebViewActivity.class);
+                    intent.putExtra("title", bean.getTitle());
+                    intent.putExtra("link", bean.getLink());
+                    context.startActivity(intent);
                 }
             });
             binding.cbCollection.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

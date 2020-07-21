@@ -44,7 +44,7 @@ public class Http {
         if (LogUtils.DEBUG) {
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
-            builder.addInterceptor(new HttpLoggingInterceptor());
+            builder.addInterceptor(loggingInterceptor);
         }
         client = builder.build();
 

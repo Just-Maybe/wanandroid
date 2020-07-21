@@ -44,7 +44,9 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
-
+    /**
+     * Adapter 观察 ViewModel 中数据是否有变化
+     */
     private void subscribeUI() {
         articleViewModel.getData().observe(getViewLifecycleOwner(), articleBeans -> {
             adapter.submitList(articleBeans);
@@ -54,7 +56,7 @@ public class HomeFragment extends Fragment {
 
     private void initRecyclerView() {
         rvArticle = root.findViewById(R.id.rv_article);
-        adapter = new ArticleAdapter();
+        adapter = new ArticleAdapter(getActivity());
         rvArticle.setAdapter(adapter);
         rvArticle.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
