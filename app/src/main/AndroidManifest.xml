@@ -24,6 +24,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.article_detail.ArticleWebViewActivity" />
+        <activity android:name=".ui.search.SearchActivity" />
     </application>
 
 </manifest>

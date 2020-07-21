@@ -41,6 +41,13 @@ public interface WanandroidApi {
     Observable<ResponseEntity<HotKeyBean>> getHotKeyList();
 
     /**
+     * 搜索
+     */
+    @FormUrlEncoded
+    @POST("article/query/{page}/json")
+    Observable<ResponseEntity<ArticleListBean>> getSearchArticleList(@Path("page") int page, @Field("k") String keyword);
+
+    /**
      * 置顶文章
      */
     @GET("top/json")

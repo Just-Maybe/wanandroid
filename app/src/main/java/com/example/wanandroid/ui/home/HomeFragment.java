@@ -1,6 +1,8 @@
 package com.example.wanandroid.ui.home;
 
+import android.app.ActivityOptions;
 import android.app.Application;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.wanandroid.R;
 import com.example.wanandroid.WanandroidApplication;
 import com.example.wanandroid.bean.ArticleBean;
+import com.example.wanandroid.ui.search.SearchActivity;
 import com.example.wanandroid.viewmodel.ArticleViewModel;
 import com.google.common.util.concurrent.JdkFutureAdapters;
 
@@ -29,6 +32,7 @@ import static android.widget.AbsListView.OnScrollListener.SCROLL_STATE_IDLE;
 public class HomeFragment extends Fragment {
 
     private ArticleViewModel articleViewModel;
+    private View layoutSearch;
     private RecyclerView rvArticle;//文章列表
     private ArticleAdapter adapter;
     private View root;
@@ -38,10 +42,25 @@ public class HomeFragment extends Fragment {
         articleViewModel = new ViewModelProvider(this).get(ArticleViewModel.class);
         root = inflater.inflate(R.layout.fragment_home, container, false);
         initRecyclerView();
+        initSearchView();
         initListener();
         subscribeUI();
         articleViewModel.getArticleListFromNetwork();
         return root;
+    }
+
+    private void initSearchView() {
+        layoutSearch = root.findViewById(R.id.search_view);
+        layoutSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                View sharedView = layoutSearch;
+                String transitionName = "searchView";
+                ActivityOptions transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(getActivity(), sharedView, transitionName);
+                startActivity(intent, transitionActivityOptions.toBundle());
+            }
+        });
     }
 
     /**
@@ -84,4 +103,6 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+
+
 }

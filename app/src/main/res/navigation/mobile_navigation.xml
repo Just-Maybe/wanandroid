@@ -22,4 +22,13 @@
         android:name="com.example.wanandroid.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
+    <activity
+        android:id="@+id/navigation_article_detail"
+        android:name="com.example.wanandroid.ui.article_detail.ArticleWebViewActivity"
+        android:label="文章详情页">
+        <argument
+            android:name="title"
+            app:argType="string" />
+    </activity>
 </navigation>
