@@ -22,21 +22,18 @@ public class KeyboardUtils {
   /**
    * 动态隐藏软键盘
    *
-   * @param activity activity
    */
-  public static void hideSoftInput(final Activity activity) {
-    InputMethodManager imm =
-        (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-    if (imm == null) return;
-    View view = activity.getCurrentFocus();
-    if (view == null) view = new View(activity);
-    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+  public static void openKeyboard(Context context, EditText editText) {
+    InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+    assert imm != null;
+    imm.showSoftInput(editText, InputMethodManager.RESULT_SHOWN);
+    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
   }
 
-  public static void showSoftKeyboard(Context context, EditText edit) {
-    InputMethodManager imm =
-        (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-    imm.showSoftInputFromInputMethod(edit.getWindowToken(), InputMethodManager.SHOW_FORCED);
+  public static void closeKeyboard(Context context, EditText editText) {
+    InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+    assert imm != null;
+    imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
   }
 
   public static void show(final View view, final long delay) {

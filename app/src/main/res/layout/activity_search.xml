@@ -29,6 +29,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="50dp"
             android:background="@null"
+            android:maxLines="1"
             android:hint="搜索关键词以空格形式隔开"
             android:textColor="@color/color_999999"
             android:textSize="14sp" />
@@ -42,7 +43,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginRight="10dp"
         android:textColor="@color/color_222222"
-        android:textSize="17sp"
+        android:textSize="18sp"
         android:text="热门搜索"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -52,7 +53,10 @@
         android:id="@+id/layout_hot_key"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        app:flexWrap="wrap"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_hot_key" />

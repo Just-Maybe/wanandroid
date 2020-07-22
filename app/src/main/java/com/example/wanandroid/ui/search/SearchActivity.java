@@ -2,8 +2,12 @@ package com.example.wanandroid.ui.search;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -14,10 +18,13 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.wanandroid.R;
 import com.example.wanandroid.bean.HotKeyBean;
+import com.example.wanandroid.utils.CommonUtils;
 import com.example.wanandroid.utils.KeyboardUtils;
 import com.example.wanandroid.utils.KeyboardVisibilityEvent;
 import com.example.wanandroid.utils.StatusBarUtil;
 import com.google.android.flexbox.FlexboxLayout;
+
+import org.antlr.v4.misc.Utils;
 
 import java.util.List;
 
@@ -26,10 +33,11 @@ import java.util.List;
  * Email: zhaoqirong96@gmail.com
  * Describe:
  */
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText etSearch;
     private FlexboxLayout layoutHotKey;//热门搜索
     private SearchViewModel viewModel;
+    private ImageView ivBack;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,9 +57,10 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        ivBack = findViewById(R.id.iv_back);
+        ivBack.setOnClickListener(this);
         etSearch = findViewById(R.id.et_search);
-        KeyboardUtils.show(etSearch, 500);
-
+        KeyboardUtils.openKeyboard(this, etSearch);
     }
 
 
@@ -68,6 +77,9 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void initListener() {
+        /**
+         * 监听软键盘
+         */
         KeyboardVisibilityEvent.setEventListener(this, isOpen -> {
             if (!isOpen) {
                 etSearch.clearFocus();
@@ -78,9 +90,31 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * 创建热搜词汇
+     *
+     * @param text
+     * @return
+     */
     private TextView createHokeyText(String text) {
         TextView tv = new TextView(this);
+        FlexboxLayout.LayoutParams params = new FlexboxLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.rightMargin = CommonUtils.dp2px(this, 18);
+        params.bottomMargin = CommonUtils.dp2px(this, 15);
+        tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+        tv.setTextColor(getResources().getColor(R.color.color_666666));
+        tv.setLayoutParams(params);
         tv.setText(text);
         return tv;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.iv_back:
+                finish();
+                KeyboardUtils.hideSoftKeyboard(this,etSearch);
+                break;
+        }
     }
 }

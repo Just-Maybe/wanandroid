@@ -14,7 +14,7 @@ import java.util.List;
 @Dao
 public interface HotKeyDao {
     @Query("SELECT * FROM hot_key_tb")
-    LiveData<List<HotKeyBean>> getAllHotKey();
+    List<HotKeyBean> getAllHotKey();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(HotKeyBean... hotKeyBeans);

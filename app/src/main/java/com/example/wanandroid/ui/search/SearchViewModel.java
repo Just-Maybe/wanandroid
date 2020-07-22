@@ -9,6 +9,7 @@ import com.example.wanandroid.bean.ResponseEntity;
 import com.example.wanandroid.network.Http;
 import com.example.wanandroid.utils.AppExecutors;
 import com.example.wanandroid.utils.RxUtils;
+import com.example.wanandroid.utils.SpUtils;
 
 import java.util.List;
 
@@ -27,42 +28,51 @@ public class SearchViewModel extends ViewModel {
 
 
     public void getAllHotKey() {
-        LiveData<List<HotKeyBean>> localHotKey = repository.getAllHotKey();
+        List<HotKeyBean> localHotKey = repository.getAllHotKey();
+        long updateHotkeyTime = SpUtils.getLong(SpUtils.update_hotKey_time);
 
-        if (localHotKey.getValue() != null && localHotKey.getValue().size() > 0) {
-            hotKeyList.setValue(localHotKey.getValue());
+        if (System.currentTimeMillis() - updateHotkeyTime > 1000 * 3600 * 24) {  //超过一天时间重新请求
+            getHotKeyFromNetwork();
             return;
         }
 
-        if (localHotKey.getValue() == null || localHotKey.getValue().size() == 0) {
-            Http.getApi().getHotKeyList().compose(RxUtils.rxSchedulerHelper()).subscribe(new Observer<ResponseEntity<List<HotKeyBean>>>() {
-                @Override
-                public void onSubscribe(Disposable d) {
-
-                }
-
-                @Override
-                public void onNext(ResponseEntity<List<HotKeyBean>> response) {
-                    if (response.getData() != null && response.getData().size() > 0) {
-                        hotKeyList.setValue(response.getData());
-                    }
-                }
-
-                @Override
-                public void onError(Throwable e) {
-
-                }
-
-                @Override
-                public void onComplete() {
-                    AppExecutors.getInstance().diskIO().execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            repository.insertAll(hotKeyList.getValue());
-                        }
-                    });
-                }
-            });
+        if (localHotKey != null && localHotKey.size() > 0) {
+            hotKeyList.setValue(localHotKey);
+            return;
         }
+        getHotKeyFromNetwork();
+    }
+
+    private void getHotKeyFromNetwork() {
+        // 网络请求
+        Http.getApi().getHotKeyList().compose(RxUtils.rxSchedulerHelper()).subscribe(new Observer<ResponseEntity<List<HotKeyBean>>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(ResponseEntity<List<HotKeyBean>> response) {
+                if (response.getData() != null && response.getData().size() > 0) {
+                    hotKeyList.setValue(response.getData());
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+                AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        repository.insertAll(hotKeyList.getValue());
+                        SpUtils.putLong(SpUtils.update_hotKey_time, System.currentTimeMillis());
+                    }
+                });
+            }
+        });
     }
 }

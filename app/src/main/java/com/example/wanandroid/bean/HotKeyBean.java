@@ -16,7 +16,7 @@ public class HotKeyBean {
      * visible : 1
      */
     @NonNull
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     private int id;
     private String link;
