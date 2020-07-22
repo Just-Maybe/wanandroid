@@ -17,25 +17,32 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:src="@mipmap/iv_search"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
-            android:layout_gravity="center_vertical"
-            android:layout_width="25dp"
-            android:layout_height="25dp" />
+            android:src="@mipmap/iv_search" />
+
         <TextView
-            android:text="搜索关键词以空格形式隔开"
-            android:layout_marginLeft="50dp"
-            android:textColor="@color/color_999999"
-            android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="50dp"
+            android:text="搜索关键词以空格形式隔开"
+            android:textColor="@color/color_999999" />
     </androidx.cardview.widget.CardView>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_article"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_view" />
+        app:layout_constraintTop_toBottomOf="@+id/search_view">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_article"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

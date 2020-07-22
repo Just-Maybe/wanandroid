@@ -1,19 +1,14 @@
 package com.example.wanandroid;
 
-import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import com.example.wanandroid.utils.StatusBarUtil;
-import com.example.wanandroid.viewmodel.ArticleViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
-import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -8,6 +8,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 import com.example.wanandroid.bean.ArticleBean;
+import com.example.wanandroid.bean.HotKeyBean;
 
 /**
  * Created by Miracle on 2020/7/18
@@ -15,13 +16,14 @@ import com.example.wanandroid.bean.ArticleBean;
  * Describe:
  */
 
-@Database(entities = {ArticleBean.class}, version = 1, exportSchema = false)
+@Database(entities = {ArticleBean.class, HotKeyBean.class}, version = 1, exportSchema = false)
 @TypeConverters({ArticleTagConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
     private static final String DATABASE_NAME = "wanandroid-db";
     private static volatile AppDatabase mAppDatabase;
 
     public abstract ArticleDao getArticleDao();
+    public abstract HotKeyDao getHotKeyDao();
 
     public static AppDatabase getInstance(Context context) {
         if (mAppDatabase == null) {

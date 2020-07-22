@@ -1,31 +1,21 @@
 package com.example.wanandroid.ui.home;
 
 import android.app.ActivityOptions;
-import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.wanandroid.R;
-import com.example.wanandroid.WanandroidApplication;
-import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.ui.search.SearchActivity;
-import com.example.wanandroid.viewmodel.ArticleViewModel;
-import com.google.common.util.concurrent.JdkFutureAdapters;
-
-import java.util.List;
 
 import static android.widget.AbsListView.OnScrollListener.SCROLL_STATE_IDLE;
 
@@ -34,6 +24,7 @@ public class HomeFragment extends Fragment {
     private ArticleViewModel articleViewModel;
     private View layoutSearch;
     private RecyclerView rvArticle;//文章列表
+    private SwipeRefreshLayout layoutRefresh;
     private ArticleAdapter adapter;
     private View root;
 
@@ -71,9 +62,15 @@ public class HomeFragment extends Fragment {
             adapter.submitList(articleBeans);
             adapter.notifyDataSetChanged();
         });
+
+        articleViewModel.isLoadData.observe(getViewLifecycleOwner(), isLoadData -> {
+            layoutRefresh.setRefreshing(isLoadData);
+        });
     }
 
     private void initRecyclerView() {
+        layoutRefresh = root.findViewById(R.id.refreshLayout);
+        layoutRefresh.setColorSchemeColors(getResources().getColor(R.color.colorAccent));
         rvArticle = root.findViewById(R.id.rv_article);
         adapter = new ArticleAdapter(getActivity());
         rvArticle.setAdapter(adapter);
@@ -81,6 +78,14 @@ public class HomeFragment extends Fragment {
     }
 
     private void initListener() {
+        layoutRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                articleViewModel.page = 0;
+                articleViewModel.getArticleListFromNetwork();
+            }
+        });
+
         rvArticle.addOnScrollListener(new RecyclerView.OnScrollListener() {
             private int lastVisibleItem;
 
@@ -102,6 +107,8 @@ public class HomeFragment extends Fragment {
                 }
             }
         });
+
+
     }
 
 

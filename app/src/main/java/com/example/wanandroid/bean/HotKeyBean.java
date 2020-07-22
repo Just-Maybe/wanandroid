@@ -1,5 +1,11 @@
 package com.example.wanandroid.bean;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "hot_key_tb")
 public class HotKeyBean {
 
     /**
@@ -9,7 +15,9 @@ public class HotKeyBean {
      * order : 1
      * visible : 1
      */
-
+    @NonNull
+    @PrimaryKey
+    @ColumnInfo(name = "id")
     private int id;
     private String link;
     private String name;

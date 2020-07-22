@@ -32,7 +32,8 @@ public class ArticleWebViewActivity extends AppCompatActivity implements View.On
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_article_detail);
-        StatusBarUtil.setTranslucent(this);
+        StatusBarUtil.setTranslucentForImageViewInFragment(this, findViewById(R.id.layout_title));
+        StatusBarUtil.setLightMode(this);
         initWebView();
         initData();
     }

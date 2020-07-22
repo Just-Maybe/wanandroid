@@ -1,4 +1,4 @@
-package com.example.wanandroid.viewmodel;
+package com.example.wanandroid.ui.home;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -7,7 +7,6 @@ import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.ArticleListBean;
 import com.example.wanandroid.bean.ResponseEntity;
 import com.example.wanandroid.network.Http;
-import com.example.wanandroid.utils.LogUtils;
 import com.example.wanandroid.utils.RxUtils;
 
 import java.util.List;
@@ -25,13 +24,17 @@ public class ArticleViewModel extends ViewModel {
     private static final String TAG = ArticleViewModel.class.getSimpleName();
     private static final int START_PAGE = 0;
     private MutableLiveData<List<ArticleBean>> dataList;
-    private int page = 0;
+    public int page = 0;
+    public MutableLiveData<Boolean> isLoadData;
 
     public ArticleViewModel() {
         dataList = new MutableLiveData<>();
+        isLoadData = new MutableLiveData<>();
+        isLoadData.setValue(false);
     }
 
     public void getArticleListFromNetwork() {
+        isLoadData.setValue(page == 0);
         Http.getApi().getArticleList(page)
                 .compose(RxUtils.rxSchedulerHelper())
                 .subscribe(new Observer<ResponseEntity<ArticleListBean>>() {
@@ -42,6 +45,7 @@ public class ArticleViewModel extends ViewModel {
 
                     @Override
                     public void onNext(ResponseEntity<ArticleListBean> response) {
+                        isLoadData.setValue(false);
                         if (response.getData() != null && response.getData().getSize() > 0) {
                             if (page == START_PAGE) {
                                 dataList.setValue(response.getData().getArticleList());
@@ -54,12 +58,13 @@ public class ArticleViewModel extends ViewModel {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        isLoadData.setValue(false);
                     }
 
                     @Override
                     public void onComplete() {
                         page++;
+                        isLoadData.setValue(false);
                     }
                 });
     }

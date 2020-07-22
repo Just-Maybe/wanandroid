@@ -38,7 +38,7 @@ public interface WanandroidApi {
      * 搜索热词
      */
     @GET("hotkey/json")
-    Observable<ResponseEntity<HotKeyBean>> getHotKeyList();
+    Observable<ResponseEntity<List<HotKeyBean>>> getHotKeyList();
 
     /**
      * 搜索
