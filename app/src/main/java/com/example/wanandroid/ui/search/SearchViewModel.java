@@ -1,9 +1,9 @@
 package com.example.wanandroid.ui.search;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.HotKeyBean;
 import com.example.wanandroid.bean.ResponseEntity;
 import com.example.wanandroid.network.Http;
@@ -19,11 +19,13 @@ import io.reactivex.disposables.Disposable;
 public class SearchViewModel extends ViewModel {
     private static final String TAG = SearchViewModel.class.getSimpleName();
     public MutableLiveData<List<HotKeyBean>> hotKeyList;
+    public MutableLiveData<List<ArticleBean>> searchResultList;
     private HotKeyRepository repository;
 
     public SearchViewModel() {
         repository = new HotKeyRepository();
         hotKeyList = new MutableLiveData<>();
+        searchResultList = new MutableLiveData<>();
     }
 
 
@@ -68,11 +70,16 @@ public class SearchViewModel extends ViewModel {
                 AppExecutors.getInstance().diskIO().execute(new Runnable() {
                     @Override
                     public void run() {
+                        repository.deleteAll();
                         repository.insertAll(hotKeyList.getValue());
                         SpUtils.putLong(SpUtils.update_hotKey_time, System.currentTimeMillis());
                     }
                 });
             }
         });
+    }
+
+    private void getSearchResultList() {
+
     }
 }

@@ -31,4 +31,11 @@ public class HotKeyRepository {
         dao.insert(dataList);
     }
 
+    /**
+     * 清空数据
+     */
+    public void deleteAll() {
+        dao.deleteAll(dao.getAllHotKey());
+    }
+
 }

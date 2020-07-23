@@ -3,8 +3,11 @@ package com.example.wanandroid.ui.search;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.TypedValue;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -84,8 +87,19 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             if (!isOpen) {
                 etSearch.clearFocus();
             } else {
-                etSearch.setFocusable(true);
                 etSearch.requestFocus();
+            }
+        });
+        /**
+         * 搜索词汇
+         */
+        etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+
+                }
+                return false;
             }
         });
     }
@@ -113,8 +127,9 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         switch (v.getId()) {
             case R.id.iv_back:
                 finish();
-                KeyboardUtils.hideSoftKeyboard(this,etSearch);
+                KeyboardUtils.hideSoftKeyboard(this, etSearch);
                 break;
         }
     }
+
 }

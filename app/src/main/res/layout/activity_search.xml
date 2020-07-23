@@ -1,64 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/search_view"
+    <data>
+
+        <import type="java.util.List" />
+
+        <import type="com.example.wanandroid.bean.HotKeyBean" />
+
+        <variable
+            name="historyList"
+            type="List" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="10dp"
-        android:transitionName="searchView"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/iv_back"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center_vertical"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:transitionName="searchView"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:src="@mipmap/iv_back" />
+
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:singleLine="true"
+                android:layout_marginLeft="50dp"
+                android:background="@null"
+                android:hint="搜索关键词以空格形式隔开"
+                android:imeOptions="actionSearch"
+                android:maxLines="1"
+                android:textColor="@color/color_999999"
+                android:textSize="14sp" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tv_hot_key"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:src="@mipmap/iv_back" />
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:text="热门搜索"
+            android:textColor="@color/color_222222"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search_view" />
 
-        <EditText
-            android:id="@+id/et_search"
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/layout_hot_key"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="10dp"
+            app:flexWrap="wrap"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_hot_key" />
+
+        <TextView
+            android:id="@+id/tv_history"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="50dp"
-            android:background="@null"
-            android:maxLines="1"
-            android:hint="搜索关键词以空格形式隔开"
-            android:textColor="@color/color_999999"
-            android:textSize="14sp" />
-    </androidx.cardview.widget.CardView>
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="10dp"
+            android:text="搜索历史"
+            android:textColor="@color/color_222222"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_hot_key" />
 
-    <TextView
-        android:id="@+id/tv_hot_key"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="10dp"
-        android:textColor="@color/color_222222"
-        android:textSize="18sp"
-        android:text="热门搜索"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_view" />
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/iv_delete"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_history"
+            app:layout_constraintRight_toRightOf="parent" />
 
-    <com.google.android.flexbox.FlexboxLayout
-        android:id="@+id/layout_hot_key"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:flexWrap="wrap"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="15dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_hot_key" />
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/layout_history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="10dp"
+            app:flexWrap="wrap"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_history" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
