@@ -16,15 +16,31 @@ import java.util.List;
 public class HotKeyRepository {
     private static final String TAG = HotKeyRepository.class.getSimpleName();
     private HotKeyDao dao;
-    private List<HotKeyBean> dataList;
 
     public HotKeyRepository() {
         dao = AppDatabase.getInstance(WanandroidApplication.getContext()).getHotKeyDao();
-        dataList = dao.getAllHotKey();
     }
 
+    /**
+     * 查询热搜词汇
+     *
+     * @return
+     */
     public List<HotKeyBean> getAllHotKey() {
-        return dataList;
+        return dao.getAllHotKey();
+    }
+
+    /**
+     * 查询历史记录
+     *
+     * @return
+     */
+    public List<HotKeyBean> getAllHistory() {
+        return dao.getAllHistory();
+    }
+
+    public void insert(HotKeyBean hotKeyBean) {
+        dao.insert(hotKeyBean);
     }
 
     public void insertAll(List<HotKeyBean> dataList) {
@@ -32,10 +48,17 @@ public class HotKeyRepository {
     }
 
     /**
-     * 清空数据
+     * 清空热搜数据
      */
-    public void deleteAll() {
+    public void deleteAllHotKey() {
         dao.deleteAll(dao.getAllHotKey());
+    }
+
+    /**
+     * 清空热搜数据
+     */
+    public void deleteAllHistory() {
+        dao.deleteAll(dao.getAllHistory());
     }
 
 }

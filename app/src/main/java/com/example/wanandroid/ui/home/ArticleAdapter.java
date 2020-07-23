@@ -2,6 +2,7 @@ package com.example.wanandroid.ui.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +28,7 @@ import com.example.wanandroid.ui.article_detail.ArticleWebViewActivity;
 public class ArticleAdapter extends ListAdapter<ArticleBean, ArticleAdapter.ArticleViewHolder> {
     private Context context;
 
-    protected ArticleAdapter(Context context) {
+    public ArticleAdapter(Context context) {
         super(new ArticleDiffCallback());
         this.context = context;
     }

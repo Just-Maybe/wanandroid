@@ -6,6 +6,8 @@
 
         <import type="com.example.wanandroid.bean.ArticleBean" />
 
+        <import type="android.text.Html" />
+
         <import type="android.view.View" />
 
         <import type="com.example.wanandroid.utils.DateUtils" />
@@ -33,7 +35,7 @@
                 android:layout_margin="10dp"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="@{article.title}"
+                android:text="@{Html.fromHtml(article.title)}"
                 android:textColor="@color/color_222222"
                 android:textSize="17sp"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -51,24 +53,24 @@
                 android:text="@{article.author}"
                 android:textColor="@color/color_666666"
                 android:textSize="15sp"
-                tools:text="123123"
                 android:visibility="@{StringUtils.isEmpty(article.author)? View.GONE:View.VISIBLE}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent" />
+                app:layout_constraintLeft_toLeftOf="parent"
+                tools:text="123123" />
 
             <!--            一级分类        -->
             <TextView
                 android:id="@+id/tv_super_chapter_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="123123"
                 android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10dp"
                 android:text="@{article.superChapterName}"
                 android:textColor="@color/color_666666"
                 android:textSize="15sp"
-                android:layout_marginBottom="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/tv_author" />
+                app:layout_constraintLeft_toRightOf="@+id/tv_author"
+                tools:text="123123" />
 
             <View
                 android:layout_width="1dp"
@@ -85,24 +87,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                tools:text="123123"
                 android:layout_marginRight="10dp"
                 android:text="@{article.chapterName}"
                 android:textColor="@color/color_666666"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_super_chapter_name"
-                app:layout_constraintLeft_toRightOf="@+id/tv_super_chapter_name" />
+                app:layout_constraintLeft_toRightOf="@+id/tv_super_chapter_name"
+                tools:text="123123" />
 
             <TextView
                 android:id="@+id/tv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10dp"
                 android:text="@{DateUtils.getTimeDistance(article.publishTime)}"
                 android:textColor="@color/color_666666"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginBottom="10dp"
                 app:layout_constraintLeft_toRightOf="@+id/tv_chapter_name" />
 
 

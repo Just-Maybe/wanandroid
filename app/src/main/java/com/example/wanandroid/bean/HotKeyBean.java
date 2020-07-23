@@ -5,6 +5,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.Objects;
+
 @Entity(tableName = "hot_key_tb")
 public class HotKeyBean {
 
@@ -23,6 +25,7 @@ public class HotKeyBean {
     private String name;
     private int order;
     private int visible;
+    private boolean isHistory;
 
     public int getId() {
         return id;
@@ -62,5 +65,27 @@ public class HotKeyBean {
 
     public void setVisible(int visible) {
         this.visible = visible;
+    }
+
+    public boolean isHistory() {
+        return isHistory;
+    }
+
+    public void setHistory(boolean history) {
+        isHistory = history;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        HotKeyBean that = (HotKeyBean) o;
+        return isHistory == that.isHistory &&
+                Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, isHistory);
     }
 }
