@@ -38,6 +38,7 @@ import com.google.android.flexbox.FlexboxLayout;
 
 import org.antlr.v4.misc.Utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static android.widget.AbsListView.OnScrollListener.SCROLL_STATE_IDLE;
@@ -158,6 +159,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.length() == 0) {
+                    keyword = "";
                     dataBinding.rvSearchResult.setVisibility(View.GONE);
                     dataBinding.layoutKeyWord.setVisibility(View.VISIBLE);
                 }
@@ -200,8 +202,10 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         params.bottomMargin = CommonUtils.dp2px(this, 15);
         tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
         tv.setOnClickListener(v -> {
-            viewModel.getSearchResultFromNetwork(text);
-            etSearch.setText(text);
+            viewModel.searchPage = 0;
+            keyword = text;
+            viewModel.getSearchResultFromNetwork(keyword);
+            etSearch.setText(keyword);
             KeyboardUtils.hideSoftKeyboard(SearchActivity.this, etSearch);
         });
         tv.setTextColor(getResources().getColor(R.color.color_666666));

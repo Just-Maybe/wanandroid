@@ -104,8 +104,8 @@
 
             <ImageView
                 android:id="@+id/iv_clear"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_marginRight="20dp"
                 android:src="@mipmap/iv_delete"
                 android:visibility="@{historyList.size()==0? View.GONE : View.VISIBLE}"
