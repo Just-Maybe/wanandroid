@@ -206,6 +206,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             keyword = text;
             viewModel.getSearchResultFromNetwork(keyword);
             etSearch.setText(keyword);
+            etSearch.setSelection(keyword.length());
             KeyboardUtils.hideSoftKeyboard(SearchActivity.this, etSearch);
         });
         tv.setTextColor(getResources().getColor(R.color.color_666666));
