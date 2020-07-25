@@ -2,6 +2,7 @@ package com.example.wanandroid;
 
 import android.os.Bundle;
 
+import com.example.wanandroid.base.BaseActivity;
 import com.example.wanandroid.utils.StatusBarUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -10,7 +11,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -103,6 +103,11 @@ public interface WanandroidApi {
     @POST("user/login")
     Observable<ResponseEntity<LoginBean>> login(@Field("username") String username, @Field("password") String password);
 
+    @FormUrlEncoded
+    @POST("user/register")
+    Observable<ResponseEntity<LoginBean>> register(@Field("username") String username, @Field("password") String password, @Field("repassword") String repassword);
+
+
     /**
      * 登出
      *

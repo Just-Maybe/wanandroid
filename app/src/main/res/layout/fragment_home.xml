@@ -29,7 +29,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="50dp"
             android:text="搜索关键词以空格形式隔开"
-            android:textColor="@color/color_999999" />
+            android:textColor="@color/colorDeliver" />
     </androidx.cardview.widget.CardView>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

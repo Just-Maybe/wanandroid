@@ -1,18 +1,13 @@
 package com.example.wanandroid.ui.search;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.TypedValue;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,7 +16,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,9 +30,6 @@ import com.example.wanandroid.utils.KeyboardVisibilityEvent;
 import com.example.wanandroid.utils.StatusBarUtil;
 import com.google.android.flexbox.FlexboxLayout;
 
-import org.antlr.v4.misc.Utils;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import static android.widget.AbsListView.OnScrollListener.SCROLL_STATE_IDLE;
@@ -209,7 +200,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             etSearch.setSelection(keyword.length());
             KeyboardUtils.hideSoftKeyboard(SearchActivity.this, etSearch);
         });
-        tv.setTextColor(getResources().getColor(R.color.color_666666));
+        tv.setTextColor(getResources().getColor(R.color.colorSecondaryText));
         tv.setLayoutParams(params);
         tv.setText(text);
         return tv;

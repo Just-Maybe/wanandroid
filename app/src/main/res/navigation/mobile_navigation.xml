@@ -19,9 +19,9 @@
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.example.wanandroid.ui.notifications.NotificationsFragment"
+        android:name="com.example.wanandroid.ui.information.InformationFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_information" />
 
     <activity
         android:id="@+id/navigation_article_detail"

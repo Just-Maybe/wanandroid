@@ -9,6 +9,9 @@ import com.example.wanandroid.WanandroidApplication;
 public class SpUtils {
     private static final String spFileName = "wanandroid";
     public static final String update_hotKey_time = "update_hotKey_time";
+    public static final String username = "username";
+    public static final String userId = "user_id";
+
 
     public static String getString(String strKey) {
         return getSP().getString(strKey, "");

@@ -13,6 +13,15 @@ public class LoginBean {
     private String icon;
     private int type;
     private List<Integer> collectIds;
+    private int userId;
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 
     public String getUsername() {
         return username;
