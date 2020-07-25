@@ -1,5 +1,7 @@
 package com.example.wanandroid.ui.article_detail;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,5 +63,12 @@ public class ArticleWebViewActivity extends AppCompatActivity implements View.On
                 finish();
                 break;
         }
+    }
+
+    public static void launch(Context context,String title, String url){
+        Intent intent = new Intent(context, ArticleWebViewActivity.class);
+        intent.putExtra("title", title);
+        intent.putExtra("link", url);
+        context.startActivity(intent);
     }
 }

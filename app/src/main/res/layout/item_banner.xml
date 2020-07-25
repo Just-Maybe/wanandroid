@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.youth.banner.Banner xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        app:banner_indicator_gravity="right"
+        app:banner_indicator_marginRight="20dp"
+        app:banner_indicator_marginBottom="10dp"
+        android:layout_height="200dp" />
+</layout>

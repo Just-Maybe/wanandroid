@@ -26,7 +26,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     private boolean isLogin = true; //  登录或注册状态
     private ActivityLoginBinding databinding;
-    private Button btnConfirm;
     private LoginViewModel viewModel;
 
     @Override

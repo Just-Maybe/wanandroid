@@ -21,7 +21,7 @@ import static android.widget.AbsListView.OnScrollListener.SCROLL_STATE_IDLE;
 
 public class HomeFragment extends Fragment {
 
-    private ArticleViewModel articleViewModel;
+    private HomeViewModel articleViewModel;
     private View layoutSearch;
     private RecyclerView rvArticle;//文章列表
     private SwipeRefreshLayout layoutRefresh;
@@ -30,13 +30,14 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        articleViewModel = new ViewModelProvider(this).get(ArticleViewModel.class);
+        articleViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         root = inflater.inflate(R.layout.fragment_home, container, false);
         initRecyclerView();
         initSearchView();
         initListener();
         subscribeUI();
         articleViewModel.getArticleListFromNetwork();
+        articleViewModel.getBannerFromNetwork();
         return root;
     }
 
@@ -58,9 +59,12 @@ public class HomeFragment extends Fragment {
      * Adapter 观察 ViewModel 中数据是否有变化
      */
     private void subscribeUI() {
-        articleViewModel.getData().observe(getViewLifecycleOwner(), articleBeans -> {
+        articleViewModel.ArticleList.observe(getViewLifecycleOwner(), articleBeans -> {
             adapter.submitList(articleBeans);
             adapter.notifyDataSetChanged();
+        });
+        articleViewModel.bannerList.observe(getViewLifecycleOwner(), bannerBeans -> {
+            adapter.setBanner(bannerBeans);
         });
 
         articleViewModel.isLoadData.observe(getViewLifecycleOwner(), isLoadData -> {
