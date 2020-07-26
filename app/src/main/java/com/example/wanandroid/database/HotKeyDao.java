@@ -1,6 +1,7 @@
 package com.example.wanandroid.database;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -17,7 +18,7 @@ public interface HotKeyDao {
     List<HotKeyBean> getAllHotKey();
 
     @Query("SELECT * FROM hot_key_tb WHERE isHistory = 1 ")
-    List<HotKeyBean> getAllHistory();
+    LiveData<List<HotKeyBean>> getAllHistory();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(HotKeyBean hotKeyBeans);
@@ -30,4 +31,5 @@ public interface HotKeyDao {
 
     @Delete()
     void deleteAll(List<HotKeyBean> hotKeyList);
+
 }

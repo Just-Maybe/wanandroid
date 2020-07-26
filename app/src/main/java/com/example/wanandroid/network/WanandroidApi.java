@@ -50,8 +50,8 @@ public interface WanandroidApi {
     /**
      * 置顶文章
      */
-    @GET("top/json")
-    Observable<ResponseEntity<ArticleBean>> getTopArticleList();
+    @GET("article/top/json")
+    Observable<ResponseEntity<List<ArticleBean>>> getTopArticleList();
 
     /**
      * 体系数据

@@ -1,8 +1,12 @@
 package com.example.wanandroid.ui.search;
 
+import android.widget.Toast;
+
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.wanandroid.WanandroidApplication;
 import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.ArticleListBean;
 import com.example.wanandroid.bean.HotKeyBean;
@@ -11,6 +15,7 @@ import com.example.wanandroid.network.Http;
 import com.example.wanandroid.utils.AppExecutors;
 import com.example.wanandroid.utils.RxUtils;
 import com.example.wanandroid.utils.SpUtils;
+import com.example.wanandroid.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +28,7 @@ public class SearchViewModel extends ViewModel {
     private static final int START_PAGE = 0;
 
     public MutableLiveData<List<HotKeyBean>> hotKeyList;
-    public MutableLiveData<List<HotKeyBean>> historyList;
+    public LiveData<List<HotKeyBean>> historyList;
     public MutableLiveData<List<ArticleBean>> searchResultList;
     private HotKeyRepository repository;
     public int searchPage = 0;
@@ -52,13 +57,6 @@ public class SearchViewModel extends ViewModel {
         getHotKeyFromNetwork();
     }
 
-    /**
-     * 获取本地历史记录
-     */
-    public void getHistoryFormLocal() {
-        List<HotKeyBean> localHotKey = repository.getAllHistory();
-        historyList.setValue(localHotKey);
-    }
 
     private void getHotKeyFromNetwork() {
         // 网络请求
@@ -126,26 +124,25 @@ public class SearchViewModel extends ViewModel {
                     @Override
                     public void onComplete() {
                         searchPage++;
-//                        AppExecutors.getInstance().diskIO().execute(new Runnable() {
-//                            @Override
-//                            public void run() {
-//
-//                            }
-//                        });
                         HotKeyBean hotKeyBean = new HotKeyBean();
                         hotKeyBean.setName(keyword);
                         hotKeyBean.setHistory(true);
-                        if (!repository.getAllHistory().contains(hotKeyBean)) {
+                        if (!historyList.getValue().contains(hotKeyBean)) {
                             repository.insert(hotKeyBean);
                         }
-                        getHistoryFormLocal();
                     }
                 });
     }
 
 
+    /**
+     * 获取本地历史记录
+     */
+    public void getHistoryFormLocal() {
+        historyList = repository.getAllHistory();
+    }
+
     public void clearHistory() {
-        repository.deleteAllHistory();
-        historyList.postValue(new ArrayList<>());
+        repository.deleteAllHistory(historyList.getValue());
     }
 }

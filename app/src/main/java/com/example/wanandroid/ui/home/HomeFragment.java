@@ -38,6 +38,7 @@ public class HomeFragment extends Fragment {
         subscribeUI();
         articleViewModel.getArticleListFromNetwork();
         articleViewModel.getBannerFromNetwork();
+        articleViewModel.getTopArticleFromNetwork();
         return root;
     }
 
@@ -59,10 +60,18 @@ public class HomeFragment extends Fragment {
      * Adapter 观察 ViewModel 中数据是否有变化
      */
     private void subscribeUI() {
-        articleViewModel.ArticleList.observe(getViewLifecycleOwner(), articleBeans -> {
-            adapter.submitList(articleBeans);
-            adapter.notifyDataSetChanged();
+        articleViewModel.articleList.observe(getViewLifecycleOwner(), articleBeans -> {
+            if (articleViewModel.page == 0) {
+                adapter.setData(articleBeans);
+            } else {
+                adapter.addData(articleBeans);
+            }
         });
+
+        articleViewModel.topArticleList.observe(getViewLifecycleOwner(), topArticleBeans -> {
+            adapter.setTopArticle(topArticleBeans);
+        });
+
         articleViewModel.bannerList.observe(getViewLifecycleOwner(), bannerBeans -> {
             adapter.setBanner(bannerBeans);
         });
@@ -87,6 +96,8 @@ public class HomeFragment extends Fragment {
             public void onRefresh() {
                 articleViewModel.page = 0;
                 articleViewModel.getArticleListFromNetwork();
+                articleViewModel.getBannerFromNetwork();
+                articleViewModel.getTopArticleFromNetwork();
             }
         });
 

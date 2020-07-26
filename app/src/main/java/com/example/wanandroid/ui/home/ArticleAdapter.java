@@ -1,8 +1,6 @@
 package com.example.wanandroid.ui.home;
 
 import android.content.Context;
-import android.content.Intent;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,9 +21,7 @@ import com.example.wanandroid.databinding.ItemBannerBinding;
 import com.example.wanandroid.databinding.ItemBannerBindingImpl;
 import com.example.wanandroid.ui.article_detail.ArticleWebViewActivity;
 import com.youth.banner.adapter.BannerImageAdapter;
-import com.youth.banner.config.IndicatorConfig;
 import com.youth.banner.holder.BannerImageHolder;
-import com.youth.banner.indicator.BaseIndicator;
 import com.youth.banner.indicator.CircleIndicator;
 import com.youth.banner.listener.OnBannerListener;
 
@@ -37,14 +33,15 @@ import java.util.List;
  * Email: zhaoqirong96@gmail.com
  * Describe:
  */
-public class ArticleAdapter extends ListAdapter<ArticleBean, RecyclerView.ViewHolder> {
+public class ArticleAdapter extends RecyclerView.Adapter {
     private Context context;
     private static final int TYPE_BANNER = 773;  //banner 样式
     private static final int TYPE_ARTICLE = 777; //文章样式
     private List<BannerBean> bannerList = new ArrayList<>();
+    private List<ArticleBean> articleList = new ArrayList<>();
+    private List<ArticleBean> topArticleList = new ArrayList<>();
 
     public ArticleAdapter(Context context) {
-        super(new ArticleDiffCallback());
         this.context = context;
     }
 
@@ -54,6 +51,41 @@ public class ArticleAdapter extends ListAdapter<ArticleBean, RecyclerView.ViewHo
             notifyItemChanged(0);
         }
     }
+
+    public void setTopArticle(List<ArticleBean> dataList) {
+        topArticleList.clear();
+        if (dataList != null && dataList.size() > 0) {
+            for (ArticleBean articleBean : dataList) {
+                articleBean.setTopArticle(true);
+            }
+            topArticleList.addAll(dataList);
+            articleList.addAll(0, topArticleList);
+            notifyItemRangeChanged(1, topArticleList.size());
+        }
+    }
+
+    public void setData(List<ArticleBean> dataList) {
+        if (dataList != null && dataList.size() > 0) {
+            articleList = dataList;
+            if(topArticleList.size()>0){
+                articleList.addAll(0, topArticleList);
+            }
+            notifyDataSetChanged();
+        }
+    }
+
+    public void addData(List<ArticleBean> dataList) {
+        if (dataList != null && dataList.size() > 0) {
+            articleList.addAll(dataList);
+            notifyDataSetChanged();
+        }
+    }
+
+    public void clear() {
+        articleList.clear();
+        bannerList.clear();
+    }
+
 
     @NonNull
     @Override
@@ -76,11 +108,16 @@ public class ArticleAdapter extends ListAdapter<ArticleBean, RecyclerView.ViewHo
     }
 
     @Override
+    public int getItemCount() {
+        return bannerList.size() > 0 ? 1 + articleList.size() : articleList.size();
+    }
+
+    @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         switch (getItemViewType(position)) {
             case TYPE_ARTICLE:
                 ArticleViewHolder articleViewHolder = (ArticleViewHolder) holder;
-                ArticleBean bean = getItem(position - 1);
+                ArticleBean bean = articleList.get(bannerList.size() == 0 ? position : position - 1);
                 articleViewHolder.bind(bean);
                 break;
             case TYPE_BANNER:

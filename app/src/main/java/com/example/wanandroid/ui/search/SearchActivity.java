@@ -30,6 +30,7 @@ import com.example.wanandroid.utils.KeyboardVisibilityEvent;
 import com.example.wanandroid.utils.StatusBarUtil;
 import com.google.android.flexbox.FlexboxLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static android.widget.AbsListView.OnScrollListener.SCROLL_STATE_IDLE;
@@ -72,7 +73,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         viewModel.searchResultList.observe(this, new Observer<List<ArticleBean>>() {
             @Override
             public void onChanged(List<ArticleBean> articleBeans) {
-                adapter.submitList(articleBeans);
+                adapter.addData(articleBeans);
                 adapter.notifyDataSetChanged();
                 dataBinding.setSearchList(articleBeans);
             }
@@ -151,8 +152,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             public void afterTextChanged(Editable s) {
                 if (s.length() == 0) {
                     keyword = "";
-                    dataBinding.rvSearchResult.setVisibility(View.GONE);
-                    dataBinding.layoutKeyWord.setVisibility(View.VISIBLE);
+                    viewModel.searchResultList.postValue(new ArrayList<>());
                 }
             }
         });

@@ -42,6 +42,20 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:id="@+id/tv_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/shape_top_bg"
+                android:text="置顶"
+                android:textSize="15sp"
+                android:textColor="@color/colorRed"
+                android:visibility="@{article.isTopArticle?View.VISIBLE:View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent" />
 
             <TextView
                 android:id="@+id/tv_author"
@@ -55,7 +69,7 @@
                 android:textSize="15sp"
                 android:visibility="@{StringUtils.isEmpty(article.author)? View.GONE:View.VISIBLE}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/tv_top"
                 tools:text="123123" />
 
             <!--            一级分类        -->

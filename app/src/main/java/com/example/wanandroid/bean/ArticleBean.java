@@ -3,6 +3,7 @@ package com.example.wanandroid.bean;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.util.List;
@@ -80,6 +81,17 @@ public class ArticleBean {
     private int visible;
     private int zan;
     private List<TagBean> tags;
+
+    @Ignore
+    private boolean isTopArticle;
+
+    public boolean isTopArticle() {
+        return isTopArticle;
+    }
+
+    public void setTopArticle(boolean topArticle) {
+        isTopArticle = topArticle;
+    }
 
     public String getApkLink() {
         return apkLink;
@@ -337,7 +349,7 @@ public class ArticleBean {
         this.tags = tags;
     }
 
-    public class TagBean{
+    public class TagBean {
 
         /**
          * name : 公众号

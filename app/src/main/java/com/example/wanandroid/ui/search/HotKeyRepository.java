@@ -3,6 +3,7 @@ package com.example.wanandroid.ui.search;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.wanandroid.WanandroidApplication;
 import com.example.wanandroid.bean.HotKeyBean;
@@ -35,7 +36,7 @@ public class HotKeyRepository {
      *
      * @return
      */
-    public List<HotKeyBean> getAllHistory() {
+    public LiveData<List<HotKeyBean>> getAllHistory() {
         return dao.getAllHistory();
     }
 
@@ -57,8 +58,8 @@ public class HotKeyRepository {
     /**
      * 清空热搜数据
      */
-    public void deleteAllHistory() {
-        dao.deleteAll(dao.getAllHistory());
+    public void deleteAllHistory(List<HotKeyBean> dataList) {
+        dao.deleteAll(dataList);
     }
 
 }

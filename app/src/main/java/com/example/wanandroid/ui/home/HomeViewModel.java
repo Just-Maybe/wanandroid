@@ -28,13 +28,15 @@ import io.reactivex.disposables.Disposable;
 public class HomeViewModel extends ViewModel {
     private static final String TAG = HomeViewModel.class.getSimpleName();
     private static final int START_PAGE = 0;
-    public MutableLiveData<List<ArticleBean>> ArticleList;
+    public MutableLiveData<List<ArticleBean>> articleList;
+    public MutableLiveData<List<ArticleBean>> topArticleList;
     public MutableLiveData<List<BannerBean>> bannerList;
     public int page = 0;
     public MutableLiveData<Boolean> isLoadData;
 
     public HomeViewModel() {
-        ArticleList = new MutableLiveData<>();
+        articleList = new MutableLiveData<>();
+        topArticleList = new MutableLiveData<>();
         bannerList = new MutableLiveData<>();
         isLoadData = new MutableLiveData<>();
         isLoadData.setValue(false);
@@ -55,10 +57,9 @@ public class HomeViewModel extends ViewModel {
                         isLoadData.setValue(false);
                         if (response.getData() != null && response.getData().getSize() > 0) {
                             if (page == START_PAGE) {
-                                ArticleList.setValue(response.getData().getArticleList());
+                                articleList.setValue(response.getData().getArticleList());
                             } else {
-                                ArticleList.getValue().addAll(response.getData().getArticleList());
-                                ArticleList.postValue(ArticleList.getValue());
+                                articleList.postValue(response.getData().getArticleList());
                             }
                         }
                     }
@@ -93,6 +94,41 @@ public class HomeViewModel extends ViewModel {
                         }
                         if (response.getData() != null && response.getData().size() > 0) {
                             bannerList.setValue(response.getData());
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    /**
+     * 获取置顶文章
+     */
+    public void getTopArticleFromNetwork() {
+        Http.getApi().getTopArticleList()
+                .compose(RxUtils.rxSchedulerHelper())
+                .subscribe(new Observer<ResponseEntity<List<ArticleBean>>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(ResponseEntity<List<ArticleBean>> response) {
+                        if (!StringUtils.isEmpty(response.getErrorMsg())) {
+                            Toast.makeText(WanandroidApplication.applicationContext, response.getErrorMsg(), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        if (response.getData() != null && response.getData().size() > 0) {
+                            topArticleList.setValue(response.getData());
                         }
                     }
 
