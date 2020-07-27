@@ -42,6 +42,9 @@ public class HomeViewModel extends ViewModel {
         isLoadData.setValue(false);
     }
 
+    /**
+     * 网络获取文章列表
+     */
     public void getArticleListFromNetwork() {
         isLoadData.setValue(page == 0);
         Http.getApi().getArticleList(page)
@@ -77,6 +80,9 @@ public class HomeViewModel extends ViewModel {
                 });
     }
 
+    /**
+     * 网络获取Banner数据
+     */
     public void getBannerFromNetwork() {
         Http.getApi().getBannerList()
                 .compose(RxUtils.rxSchedulerHelper())

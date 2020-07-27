@@ -27,4 +27,8 @@
         <item name="android:textColorHint">@color/colorSecondaryText</item>
     </style>
 
+    <style name="category_tabLayout_style">
+        <item name="android:textSize">16sp</item>
+    </style>
+
 </resources>

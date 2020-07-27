@@ -8,7 +8,7 @@ import com.example.wanandroid.bean.LoginBean;
 import com.example.wanandroid.bean.ProjectListBean;
 import com.example.wanandroid.bean.ProjectTreeBean;
 import com.example.wanandroid.bean.ResponseEntity;
-import com.example.wanandroid.bean.TreeBean;
+import com.example.wanandroid.bean.CategoryTreeBean;
 
 import java.util.List;
 
@@ -57,7 +57,7 @@ public interface WanandroidApi {
      * 体系数据
      */
     @GET("tree/json")
-    Observable<ResponseEntity<List<TreeBean>>> getTreeList();
+    Observable<ResponseEntity<List<CategoryTreeBean>>> getTreeList();
 
     /**
      * 知识体系下的文章

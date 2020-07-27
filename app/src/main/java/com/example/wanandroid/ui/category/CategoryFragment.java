@@ -4,32 +4,61 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.wanandroid.R;
+import com.example.wanandroid.bean.CategoryTreeBean;
+import com.example.wanandroid.databinding.FragmentCategoryBinding;
+import com.google.android.material.tabs.TabLayoutMediator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CategoryFragment extends Fragment {
 
-    private CategoryViewModel dashboardViewModel;
+    private FragmentCategoryBinding databinding;
+    private CategoryDetailListAdapter adapter;
+    private CategoryViewModel categoryViewModel;//用ViewModel 将Fragment与Activity 通讯
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        dashboardViewModel =
-                ViewModelProviders.of(this).get(CategoryViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_category, container, false);
-        final TextView textView = root.findViewById(R.id.text_dashboard);
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
+        categoryViewModel = new ViewModelProvider(requireActivity()).get(CategoryViewModel.class);
+        databinding = DataBindingUtil.inflate(inflater, R.layout.fragment_category, container, false);
+        initTabLayout();
+        initViewPager2();
+        initData();
+        return databinding.getRoot();
+    }
+
+    private void initData() {
+
+    }
+
+    private void initTabLayout() {
+        List<Fragment> categoryFragmentList = new ArrayList<>();
+        databinding.tablayout.setTabIndicatorFullWidth(false);
+        categoryViewModel.categoryList.observe(getViewLifecycleOwner(), categoryTreeBeans -> {
+            for (int i = 0; i < categoryTreeBeans.size(); i++) {
+                CategoryTreeBean categoryTree = categoryTreeBeans.get(i);
+                databinding.tablayout.addTab(databinding.tablayout.newTab().setText(categoryTree.getName()));
+                categoryFragmentList.add(CategoryDetailFragment.newInstance(categoryTree.getName(), categoryTree.getId(), i));
             }
+
+            adapter = new CategoryDetailListAdapter(this, categoryFragmentList);
+            databinding.viewPager.setAdapter(adapter);
+            //关联 TabLayout viewpager2
+            new TabLayoutMediator(databinding.tablayout, databinding.viewPager, (tab, position) -> {
+                tab.setText(categoryTreeBeans.get(position).getName());
+            }).attach();
         });
-        return root;
+
+    }
+
+    private void initViewPager2() {
+
     }
 }
