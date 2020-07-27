@@ -9,6 +9,7 @@ import androidx.room.TypeConverters;
 
 import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.HotKeyBean;
+import com.example.wanandroid.utils.AppExecutors;
 
 /**
  * Created by Miracle on 2020/7/18
@@ -23,6 +24,7 @@ public abstract class AppDatabase extends RoomDatabase {
     private static volatile AppDatabase mAppDatabase;
 
     public abstract ArticleDao getArticleDao();
+
     public abstract HotKeyDao getHotKeyDao();
 
     public static AppDatabase getInstance(Context context) {
@@ -39,6 +41,7 @@ public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase buildDatabase(Context context) {
         return Room.databaseBuilder(context, AppDatabase.class, DATABASE_NAME)
                 .allowMainThreadQueries()
+                .setQueryExecutor(AppExecutors.getInstance().diskIO())
                 .build();
     }
 }
