@@ -70,13 +70,10 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         rvResult.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ArticleAdapter(this);
         rvResult.setAdapter(adapter);
-        viewModel.searchResultList.observe(this, new Observer<List<ArticleBean>>() {
-            @Override
-            public void onChanged(List<ArticleBean> articleBeans) {
-                adapter.addData(articleBeans);
-                adapter.notifyDataSetChanged();
-                dataBinding.setSearchList(articleBeans);
-            }
+        viewModel.searchResultList.observe(this, articleBeans -> {
+            adapter.addData(articleBeans);
+            adapter.notifyDataSetChanged();
+            dataBinding.setSearchList(articleBeans);
         });
     }
 

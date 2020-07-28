@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.wanandroid.R;
+import com.example.wanandroid.listener.RvLoadMoreListener;
 import com.example.wanandroid.ui.search.SearchActivity;
 
 import static android.widget.AbsListView.OnScrollListener.SCROLL_STATE_IDLE;
@@ -101,25 +102,16 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        rvArticle.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            private int lastVisibleItem;
+        rvArticle.addOnScrollListener(new RvLoadMoreListener(){
 
             @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                if (newState == SCROLL_STATE_IDLE &&
-                        lastVisibleItem + 1 >= adapter.getItemCount()) {
-                    //加载更多
-                    articleViewModel.getArticleListFromNetwork();
-                }
+            public void loadMoreData() {
+                articleViewModel.getArticleListFromNetwork();
             }
 
             @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
-                if (layoutManager instanceof LinearLayoutManager) {
-                    LinearLayoutManager manager = (LinearLayoutManager) layoutManager;
-                    lastVisibleItem = manager.findLastVisibleItemPosition();
-                }
+            public int getItemCount() {
+                return adapter.getItemCount();
             }
         });
     }

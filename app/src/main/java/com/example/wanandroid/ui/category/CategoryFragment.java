@@ -8,8 +8,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.wanandroid.GlobalViewModel;
 import com.example.wanandroid.R;
 import com.example.wanandroid.bean.CategoryTreeBean;
 import com.example.wanandroid.databinding.FragmentCategoryBinding;
@@ -22,11 +24,11 @@ public class CategoryFragment extends Fragment {
 
     private FragmentCategoryBinding databinding;
     private CategoryDetailListAdapter adapter;
-    private CategoryViewModel categoryViewModel;//用ViewModel 将Fragment与Activity 通讯
+    private GlobalViewModel globalViewModel;//用ViewModel 将Fragment与Activity 通讯
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        categoryViewModel = new ViewModelProvider(requireActivity()).get(CategoryViewModel.class);
+        globalViewModel = new ViewModelProvider(requireActivity()).get(GlobalViewModel.class);
         databinding = DataBindingUtil.inflate(inflater, R.layout.fragment_category, container, false);
         initTabLayout();
         initViewPager2();
@@ -41,7 +43,7 @@ public class CategoryFragment extends Fragment {
     private void initTabLayout() {
         List<Fragment> categoryFragmentList = new ArrayList<>();
         databinding.tablayout.setTabIndicatorFullWidth(false);
-        categoryViewModel.categoryList.observe(getViewLifecycleOwner(), categoryTreeBeans -> {
+        globalViewModel.categoryList.observe(getViewLifecycleOwner(), categoryTreeBeans -> {
             for (int i = 0; i < categoryTreeBeans.size(); i++) {
                 CategoryTreeBean categoryTree = categoryTreeBeans.get(i);
                 databinding.tablayout.addTab(databinding.tablayout.newTab().setText(categoryTree.getName()));

@@ -67,7 +67,7 @@ public interface WanandroidApi {
      * @return
      */
     @GET("article/list/{page}/json")
-    Observable<ResponseEntity<ArticleListBean>> getArticleListByTreeId(@Path("page") int page, @Query("cid") String cid);
+    Observable<ResponseEntity<ArticleListBean>> getArticleListByCategoryId(@Path("page") int page, @Query("cid") int cid);
 
     /**
      * 按照作者昵称搜索文章

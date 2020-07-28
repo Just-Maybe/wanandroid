@@ -15,10 +15,9 @@
         <HorizontalScrollView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:scrollbars="none"
             android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
