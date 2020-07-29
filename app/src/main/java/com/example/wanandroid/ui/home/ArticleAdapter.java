@@ -40,9 +40,15 @@ public class ArticleAdapter extends RecyclerView.Adapter {
     private List<BannerBean> bannerList = new ArrayList<>();
     private List<ArticleBean> articleList = new ArrayList<>();
     private List<ArticleBean> topArticleList = new ArrayList<>();
+    private onClickItemListener listener;
+
 
     public ArticleAdapter(Context context) {
         this.context = context;
+    }
+
+    public void setListener(onClickItemListener listener) {
+        this.listener = listener;
     }
 
     public void setBanner(List<BannerBean> dataList) {
@@ -67,7 +73,7 @@ public class ArticleAdapter extends RecyclerView.Adapter {
     public void setData(List<ArticleBean> dataList) {
         if (dataList != null && dataList.size() > 0) {
             articleList = dataList;
-            if(topArticleList.size()>0){
+            if (topArticleList.size() > 0) {            //插入置顶文章
                 articleList.addAll(0, topArticleList);
             }
             notifyDataSetChanged();
@@ -79,11 +85,6 @@ public class ArticleAdapter extends RecyclerView.Adapter {
             articleList.addAll(dataList);
             notifyDataSetChanged();
         }
-    }
-
-    public void clear() {
-        articleList.clear();
-        bannerList.clear();
     }
 
 
@@ -151,6 +152,23 @@ public class ArticleAdapter extends RecyclerView.Adapter {
 
                 }
             });
+
+            binding.tvSubCategory.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        listener.onClickSubCategory(bean);
+                    }
+                }
+            });
+            binding.tvSuperCategory.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(listener!=null){
+                        listener.onClickCategory(bean);
+                    }
+                }
+            });
         }
     }
 
@@ -177,6 +195,13 @@ public class ArticleAdapter extends RecyclerView.Adapter {
                 }
             });
         }
+    }
+
+
+    public interface onClickItemListener {
+        void onClickSubCategory(ArticleBean articleBean); //父分类
+
+        void onClickCategory(ArticleBean bean); // 子分类
     }
 
     private static class ArticleDiffCallback extends DiffUtil.ItemCallback<ArticleBean> {

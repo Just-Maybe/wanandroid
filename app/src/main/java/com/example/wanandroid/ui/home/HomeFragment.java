@@ -15,7 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.wanandroid.R;
+import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.listener.RvLoadMoreListener;
+import com.example.wanandroid.ui.category.CategoryDetailFragment;
+import com.example.wanandroid.ui.category.CategoryFragment;
 import com.example.wanandroid.ui.search.SearchActivity;
 
 import static android.widget.AbsListView.OnScrollListener.SCROLL_STATE_IDLE;
@@ -92,17 +95,14 @@ public class HomeFragment extends Fragment {
     }
 
     private void initListener() {
-        layoutRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                articleViewModel.page = 0;
-                articleViewModel.getArticleListFromNetwork();
-                articleViewModel.getBannerFromNetwork();
-                articleViewModel.getTopArticleFromNetwork();
-            }
+        layoutRefresh.setOnRefreshListener(() -> {
+            articleViewModel.page = 0;
+            articleViewModel.getArticleListFromNetwork();
+            articleViewModel.getBannerFromNetwork();
+            articleViewModel.getTopArticleFromNetwork();
         });
 
-        rvArticle.addOnScrollListener(new RvLoadMoreListener(){
+        rvArticle.addOnScrollListener(new RvLoadMoreListener() {
 
             @Override
             public void loadMoreData() {
@@ -112,6 +112,18 @@ public class HomeFragment extends Fragment {
             @Override
             public int getItemCount() {
                 return adapter.getItemCount();
+            }
+        });
+
+        adapter.setListener(new ArticleAdapter.onClickItemListener() {
+            @Override
+            public void onClickSubCategory(ArticleBean articleBean) {
+
+            }
+
+            @Override
+            public void onClickCategory(ArticleBean bean) {
+
             }
         });
     }

@@ -149,4 +149,8 @@ public class CategoryDetailFragment extends Fragment {
         btn.setText(bean.getName());
         return btn;
     }
+
+    public void setSelectCategory(int cid) {
+        databinding.rgSubCategory.check(cid);
+    }
 }

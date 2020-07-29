@@ -22,9 +22,10 @@ import java.util.List;
 
 public class CategoryFragment extends Fragment {
 
-    private FragmentCategoryBinding databinding;
+    private static FragmentCategoryBinding databinding;
     private CategoryDetailListAdapter adapter;
     private GlobalViewModel globalViewModel;//用ViewModel 将Fragment与Activity 通讯
+    private static List<CategoryDetailFragment> categoryFragmentList;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class CategoryFragment extends Fragment {
     }
 
     private void initTabLayout() {
-        List<Fragment> categoryFragmentList = new ArrayList<>();
+        categoryFragmentList = new ArrayList<>();
         databinding.tablayout.setTabIndicatorFullWidth(false);
         globalViewModel.categoryList.observe(getViewLifecycleOwner(), categoryTreeBeans -> {
             for (int i = 0; i < categoryTreeBeans.size(); i++) {
@@ -63,4 +64,6 @@ public class CategoryFragment extends Fragment {
     private void initViewPager2() {
 
     }
+
+
 }

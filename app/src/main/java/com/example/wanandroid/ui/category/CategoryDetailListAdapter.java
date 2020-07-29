@@ -17,9 +17,9 @@ import java.util.List;
  */
 public class CategoryDetailListAdapter extends FragmentStateAdapter  {
 
-    private List<Fragment> fragmentList;
+    private List<CategoryDetailFragment> fragmentList;
 
-    public CategoryDetailListAdapter(@NonNull Fragment fragment, List<Fragment> fragmentList) {
+    public CategoryDetailListAdapter(@NonNull Fragment fragment, List<CategoryDetailFragment> fragmentList) {
         super(fragment);
         this.fragmentList = fragmentList;
     }

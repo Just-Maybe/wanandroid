@@ -77,7 +77,7 @@
 
             <!--            一级分类        -->
             <TextView
-                android:id="@+id/tv_super_chapter_name"
+                android:id="@+id/tv_super_category"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -95,12 +95,12 @@
                 android:layout_marginLeft="3dp"
                 android:layout_marginBottom="2dp"
                 android:background="@color/colorSecondaryText"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_super_chapter_name"
-                app:layout_constraintLeft_toRightOf="@+id/tv_super_chapter_name" />
+                app:layout_constraintBottom_toBottomOf="@+id/tv_super_category"
+                app:layout_constraintLeft_toRightOf="@+id/tv_super_category" />
 
             <!--     二级分类-->
             <TextView
-                android:id="@+id/tv_chapter_name"
+                android:id="@+id/tv_sub_category"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
@@ -108,8 +108,8 @@
                 android:text="@{article.chapterName}"
                 android:textColor="@color/colorSecondaryText"
                 android:textSize="15sp"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_super_chapter_name"
-                app:layout_constraintLeft_toRightOf="@+id/tv_super_chapter_name"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_super_category"
+                app:layout_constraintLeft_toRightOf="@+id/tv_super_category"
                 tools:text="123123" />
 
             <TextView
@@ -122,7 +122,7 @@
                 android:textColor="@color/colorSecondaryText"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/tv_chapter_name" />
+                app:layout_constraintLeft_toRightOf="@+id/tv_sub_category" />
 
 
             <androidx.appcompat.widget.AppCompatCheckBox
