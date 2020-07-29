@@ -9,17 +9,23 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.wanandroid.GlobalViewModel;
+import com.example.wanandroid.MainActivity;
 import com.example.wanandroid.R;
 import com.example.wanandroid.bean.ArticleBean;
+import com.example.wanandroid.bean.CategoryTreeBean;
 import com.example.wanandroid.listener.RvLoadMoreListener;
 import com.example.wanandroid.ui.category.CategoryDetailFragment;
 import com.example.wanandroid.ui.category.CategoryFragment;
 import com.example.wanandroid.ui.search.SearchActivity;
+
+import java.util.List;
 
 import static android.widget.AbsListView.OnScrollListener.SCROLL_STATE_IDLE;
 
@@ -31,11 +37,13 @@ public class HomeFragment extends Fragment {
     private SwipeRefreshLayout layoutRefresh;
     private ArticleAdapter adapter;
     private View root;
+    private GlobalViewModel globalViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         articleViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         root = inflater.inflate(R.layout.fragment_home, container, false);
+        globalViewModel = new ViewModelProvider(requireActivity()).get(GlobalViewModel.class);
         initRecyclerView();
         initSearchView();
         initListener();
@@ -118,12 +126,14 @@ public class HomeFragment extends Fragment {
         adapter.setListener(new ArticleAdapter.onClickItemListener() {
             @Override
             public void onClickSubCategory(ArticleBean articleBean) {
-
+                ((MainActivity) getActivity()).switchFragment(1);
+                rvArticle.postDelayed(() -> ((MainActivity) getActivity()).getCategoryFragment().selectCategory((articleBean.getSuperChapterId() - 1), articleBean.getChapterId()), 500);
             }
 
             @Override
-            public void onClickCategory(ArticleBean bean) {
-
+            public void onClickCategory(ArticleBean articleBean) {
+                ((MainActivity) getActivity()).switchFragment(1);
+                rvArticle.postDelayed(() -> ((MainActivity) getActivity()).getCategoryFragment().selectCategory((articleBean.getSuperChapterId() - 1)), 500);
             }
         });
     }
