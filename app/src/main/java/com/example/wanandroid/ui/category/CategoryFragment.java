@@ -17,23 +17,26 @@ import com.example.wanandroid.R;
 import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.CategoryTreeBean;
 import com.example.wanandroid.databinding.FragmentCategoryBinding;
+import com.example.wanandroid.utils.StringUtils;
+import com.example.wanandroid.view.CategoryDialogFragment;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryFragment extends Fragment {
+public class CategoryFragment extends Fragment implements View.OnClickListener {
 
     private static FragmentCategoryBinding databinding;
     private CategoryDetailListAdapter adapter;
     private GlobalViewModel globalViewModel;//用ViewModel 将Fragment与Activity 通讯
     private static List<CategoryDetailFragment> categoryFragmentList;
-    private List<Integer> categoryIdList;
+    private List<String> categoryIdList;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         globalViewModel = new ViewModelProvider(requireActivity()).get(GlobalViewModel.class);
         databinding = DataBindingUtil.inflate(inflater, R.layout.fragment_category, container, false);
+        databinding.ivMenu.setOnClickListener(this);
         initTabLayout();
         initViewPager2();
         initData();
@@ -51,7 +54,7 @@ public class CategoryFragment extends Fragment {
         globalViewModel.categoryList.observe(getViewLifecycleOwner(), categoryTreeBeans -> {
             for (int i = 0; i < categoryTreeBeans.size(); i++) {
                 CategoryTreeBean categoryTree = categoryTreeBeans.get(i);
-                categoryIdList.add(categoryTree.getId());
+                categoryIdList.add(categoryTree.getName());
                 databinding.tablayout.addTab(databinding.tablayout.newTab().setText(categoryTree.getName()));
                 categoryFragmentList.add(CategoryDetailFragment.newInstance(categoryTree.getName(), categoryTree.getId(), i));
             }
@@ -74,12 +77,12 @@ public class CategoryFragment extends Fragment {
     /**
      * 选择分类
      *
-     * @param pid 父分类id
-     * @param cid 子分类id
+     * @param pName 父分类 名称
+     * @param cid   子分类id
      */
-    public void selectCategory(int pid, int cid) {
-        if (pid != 0) {
-            index = categoryIdList.indexOf(pid);
+    public void selectCategory(String pName, int cid) {
+        if (!StringUtils.isEmpty(pName)) {
+            index = categoryIdList.indexOf(pName);
             if (index == -1) {
                 return;
             }
@@ -95,8 +98,28 @@ public class CategoryFragment extends Fragment {
         }
     }
 
-    public void selectCategory(int pid) {
-        selectCategory(pid, 0);
+    public void selectCategory(String pName) {
+        selectCategory(pName, 0);
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.iv_menu:
+                openCategoryDialog();
+                break;
+        }
+    }
+
+    private void openCategoryDialog() {
+        CategoryDialogFragment dialog = new CategoryDialogFragment();
+        dialog.show(getParentFragmentManager(), "Category");
+        dialog.setListener(new CategoryDialogFragment.onItemClickListener() {
+            @Override
+            public void onItemClick(CategoryTreeBean treeBean) {
+                selectCategory(treeBean.getName());
+                dialog.dismiss();
+            }
+        });
+    }
 }

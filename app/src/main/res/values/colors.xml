@@ -11,4 +11,5 @@
     <color name="colorWhite">#ffffff</color>
     <color name="colorRed">#D32F2F</color>
     <color name="colorRedBg">#FFCDD2</color>
+    <color name="translation">#00FFFFFF</color>
 </resources>

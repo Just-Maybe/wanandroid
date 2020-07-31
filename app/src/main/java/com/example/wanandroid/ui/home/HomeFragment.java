@@ -127,13 +127,13 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClickSubCategory(ArticleBean articleBean) {
                 ((MainActivity) getActivity()).switchFragment(1);
-                rvArticle.postDelayed(() -> ((MainActivity) getActivity()).getCategoryFragment().selectCategory((articleBean.getSuperChapterId() - 1), articleBean.getChapterId()), 500);
+                rvArticle.postDelayed(() -> ((MainActivity) getActivity()).getCategoryFragment().selectCategory(articleBean.getSuperChapterName(), articleBean.getChapterId()), 500);
             }
 
             @Override
             public void onClickCategory(ArticleBean articleBean) {
                 ((MainActivity) getActivity()).switchFragment(1);
-                rvArticle.postDelayed(() -> ((MainActivity) getActivity()).getCategoryFragment().selectCategory((articleBean.getSuperChapterId() - 1)), 500);
+                rvArticle.postDelayed(() -> ((MainActivity) getActivity()).getCategoryFragment().selectCategory(articleBean.getSuperChapterName()), 500);
             }
         });
     }

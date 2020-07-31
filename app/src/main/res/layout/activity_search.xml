@@ -37,7 +37,7 @@
                 android:layout_height="20dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
-                android:src="@mipmap/iv_back" />
+                android:src="@mipmap/ic_back" />
 
             <EditText
                 android:id="@+id/et_search"
@@ -108,7 +108,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginRight="20dp"
-                android:src="@mipmap/iv_delete"
+                android:src="@mipmap/ic_delete"
                 android:visibility="@{historyList.size()==0? View.GONE : View.VISIBLE}"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_history"
                 app:layout_constraintRight_toRightOf="parent" />

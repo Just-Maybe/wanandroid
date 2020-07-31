@@ -8,8 +8,8 @@
         <item name="android:windowContentTransitions">true</item>
 
         <!-- specify enter and exit transitions -->
-<!--        <item name="android:windowEnterTransition">@transition/explode</item>-->
-<!--        <item name="android:windowExitTransition">@transition/explode</item>-->
+        <!--        <item name="android:windowEnterTransition">@transition/explode</item>-->
+        <!--        <item name="android:windowExitTransition">@transition/explode</item>-->
 
         <!-- specify shared element transitions -->
         <item name="android:windowAllowEnterTransitionOverlap">true</item>
@@ -29,6 +29,15 @@
 
     <style name="category_tabLayout_style">
         <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="category_dialog_style" parent="Base.Theme.AppCompat.Dialog">
+
+    </style>
+
+    <style name="DialogBottomAnimation" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/bottom_in_anim</item>
+        <item name="android:windowExitAnimation">@anim/bottom_out_anim</item>
     </style>
 
 </resources>
