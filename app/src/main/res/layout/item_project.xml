@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.example.wanandroid.bean.ProjectBean" />
+
+        <import type="com.example.wanandroid.utils.DateUtils" />
+
+        <variable
+            name="projectBean"
+            type="ProjectBean" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_margin="10dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_cover"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                app:imageUrl="@{projectBean.envelopePic}"
+                app:layout_constraintDimensionRatio="h,1920:1080"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:maxLines="2"
+                android:text="@{projectBean.title}"
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="17sp"
+                app:layout_constraintLeft_toRightOf="@+id/iv_cover"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="aoidsjfosajdfosajfdosajofdjsoafdjsoadjfja" />
+
+            <TextView
+                android:id="@+id/tv_describe"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
+                android:ellipsize="end"
+                android:maxLines="6"
+                android:text="@{projectBean.desc}"
+                android:textColor="@color/colorSecondaryText"
+                app:layout_constraintLeft_toRightOf="@+id/iv_cover"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_name"
+                tools:text="aoidsjfosajdfosajfdosajofdjsoafdjsoadjfjasodfjosadjfoisajfdojjsadofjiosadfjoi" />
+
+            <TextView
+                android:id="@+id/tv_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="@{projectBean.author}"
+                android:textColor="@color/colorSecondaryText"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/iv_cover"
+                tools:text="asdasd" />
+
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="@{DateUtils.getTimeDistance(projectBean.publishTime)}"
+                android:textColor="@color/colorSecondaryText"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_author"
+                app:layout_constraintLeft_toRightOf="@+id/tv_author"
+                tools:text="1991-1-2" />
+
+            <TextView
+                android:id="@+id/tv_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="查看同类项目"
+                android:textColor="@color/colorSecondaryText"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

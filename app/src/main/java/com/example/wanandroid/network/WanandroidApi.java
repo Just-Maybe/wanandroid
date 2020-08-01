@@ -6,7 +6,7 @@ import com.example.wanandroid.bean.BannerBean;
 import com.example.wanandroid.bean.HotKeyBean;
 import com.example.wanandroid.bean.LoginBean;
 import com.example.wanandroid.bean.ProjectListBean;
-import com.example.wanandroid.bean.ProjectTreeBean;
+import com.example.wanandroid.bean.ProjectCategoryBean;
 import com.example.wanandroid.bean.ResponseEntity;
 import com.example.wanandroid.bean.CategoryTreeBean;
 
@@ -88,13 +88,22 @@ public interface WanandroidApi {
      * 项目分类
      */
     @GET("project/tree/json")
-    Observable<ResponseEntity<List<ProjectTreeBean>>> getProjectTreeList();
+    Observable<ResponseEntity<List<ProjectCategoryBean>>> getProjectCategoryList();
 
     /**
      * 项目列表数据
      */
     @GET("project/list/{page}/json")
-    Observable<ResponseEntity<ProjectListBean>> getProjectList(@Path("page") int page, @Query("cid") String cid);
+    Observable<ResponseEntity<ProjectListBean>> getProjectListById(@Path("page") int page, @Query("cid") String cid);
+
+    /**
+     * 获取热门项目列表
+     *
+     * @param page
+     * @return
+     */
+    @GET("article/listproject/{page}/json")
+    Observable<ResponseEntity<ProjectListBean>> getHotProjectList(@Path("page") int page);
 
     /**
      * 登录

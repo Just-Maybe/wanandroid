@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -67,16 +68,25 @@ public class CategoryDetailFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         databinding = DataBindingUtil.inflate(inflater, R.layout.fragment_category_detail, container, false);
         initView();
+        initData();
         initListener();
+        subscribeUI();
         return databinding.getRoot();
     }
 
+    private void initData() {
+        globalViewModel = new ViewModelProvider(requireActivity()).get(GlobalViewModel.class);
+        categoryViewModel = new ViewModelProvider(this).get(CategoryViewModel.class);
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        initData();
-        subscribeUI();
+    }
+
+    private void initView() {
+        adapter = new ArticleAdapter(getActivity());
+        databinding.rvSubCategory.setLayoutManager(new LinearLayoutManager(getActivity()));
+        databinding.rvSubCategory.setAdapter(adapter);
+
+        databinding.refreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorAccent));
+        databinding.refreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorAccent));
     }
 
     private void subscribeUI() {
@@ -85,6 +95,13 @@ public class CategoryDetailFragment extends Fragment {
                 adapter.setData(articleBeans);
             } else {
                 adapter.addData(articleBeans);
+            }
+        });
+
+        globalViewModel.categoryList.observe(getViewLifecycleOwner(), categoryTreeBeans -> {
+            categoryTree = categoryTreeBeans.get(position);
+            for (int position = 0; position < categoryTree.getChildren().size(); position++) {
+                databinding.rgSubCategory.addView(createSubCategoryText(categoryTree.getChildren().get(position), position));
             }
         });
     }
@@ -107,24 +124,15 @@ public class CategoryDetailFragment extends Fragment {
                 return adapter.getItemCount();
             }
         });
-    }
 
-    private void initData() {
-        globalViewModel = new ViewModelProvider(requireActivity()).get(GlobalViewModel.class);
-        categoryViewModel = new ViewModelProvider(this).get(CategoryViewModel.class);
-        globalViewModel.categoryList.observe(getViewLifecycleOwner(), categoryTreeBeans -> {
-            categoryTree = categoryTreeBeans.get(position);
-            for (int position = 0; position < categoryTree.getChildren().size(); position++) {
-                databinding.rgSubCategory.addView(createSubCategoryText(categoryTree.getChildren().get(position), position));
+        categoryViewModel.isLoadData.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean isLoadData) {
+                databinding.refreshLayout.setRefreshing(isLoadData);
             }
         });
     }
 
-    private void initView() {
-        adapter = new ArticleAdapter(getActivity());
-        databinding.rvSubCategory.setLayoutManager(new LinearLayoutManager(getActivity()));
-        databinding.rvSubCategory.setAdapter(adapter);
-    }
 
     /**
      * 创建热搜词汇

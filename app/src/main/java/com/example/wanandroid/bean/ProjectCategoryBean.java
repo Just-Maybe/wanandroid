@@ -1,7 +1,5 @@
 package com.example.wanandroid.bean;
 
-import androidx.room.Entity;
-
 import java.util.List;
 
 /**
@@ -10,7 +8,7 @@ import java.util.List;
  * Describe:  知识体系树
  */
 
-public class ProjectTreeBean {
+public class ProjectCategoryBean {
 
     /**
      * visible : 0
@@ -23,7 +21,7 @@ public class ProjectTreeBean {
      * order : 145000
      */
     private int visible;
-    private List<ProjectTreeBean> children;
+    private List<ProjectCategoryBean> children;
     private String name;
     private boolean userControlSetTop;
     private int id;
@@ -35,7 +33,7 @@ public class ProjectTreeBean {
         this.visible = visible;
     }
 
-    public void setChildren(List<ProjectTreeBean> children) {
+    public void setChildren(List<ProjectCategoryBean> children) {
         this.children = children;
     }
 
@@ -67,7 +65,7 @@ public class ProjectTreeBean {
         return visible;
     }
 
-    public List<ProjectTreeBean> getChildren() {
+    public List<ProjectCategoryBean> getChildren() {
         return children;
     }
 

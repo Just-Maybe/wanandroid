@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.wanandroid.WanandroidApplication;
+import com.example.wanandroid.base.RxObserver;
 import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.ArticleListBean;
 import com.example.wanandroid.bean.BannerBean;
@@ -69,7 +70,6 @@ public class HomeViewModel extends ViewModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        isLoadData.setValue(false);
                     }
 
                     @Override
@@ -86,30 +86,16 @@ public class HomeViewModel extends ViewModel {
     public void getBannerFromNetwork() {
         Http.getApi().getBannerList()
                 .compose(RxUtils.rxSchedulerHelper())
-                .subscribe(new Observer<ResponseEntity<List<BannerBean>>>() {
+                .subscribe(new RxObserver<List<BannerBean>>() {
                     @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(ResponseEntity<List<BannerBean>> response) {
-                        if (!StringUtils.isEmpty(response.getErrorMsg())) {
-                            Toast.makeText(WanandroidApplication.applicationContext, response.getErrorMsg(), Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        if (response.getData() != null && response.getData().size() > 0) {
-                            bannerList.setValue(response.getData());
+                    public void onSuccess(List<BannerBean> bannerBeans) {
+                        if (bannerBeans != null && bannerBeans.size() > 0) {
+                            bannerList.setValue(bannerBeans);
                         }
                     }
 
                     @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
+                    public void onFailure(String errorMsg, int errorCode) {
 
                     }
                 });
@@ -121,30 +107,16 @@ public class HomeViewModel extends ViewModel {
     public void getTopArticleFromNetwork() {
         Http.getApi().getTopArticleList()
                 .compose(RxUtils.rxSchedulerHelper())
-                .subscribe(new Observer<ResponseEntity<List<ArticleBean>>>() {
+                .subscribe(new RxObserver<List<ArticleBean>>() {
                     @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(ResponseEntity<List<ArticleBean>> response) {
-                        if (!StringUtils.isEmpty(response.getErrorMsg())) {
-                            Toast.makeText(WanandroidApplication.applicationContext, response.getErrorMsg(), Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        if (response.getData() != null && response.getData().size() > 0) {
-                            topArticleList.setValue(response.getData());
+                    public void onSuccess(List<ArticleBean> articleBeans) {
+                        if (articleBeans != null && articleBeans.size() > 0) {
+                            topArticleList.setValue(articleBeans);
                         }
                     }
 
                     @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
+                    public void onFailure(String errorMsg, int errorCode) {
 
                     }
                 });

@@ -14,11 +14,14 @@ import java.util.List;
 public class CategoryViewModel extends ViewModel {
 
     public MutableLiveData<List<ArticleBean>> categoryArticleList;  // 分类下的文章列表
+    public MutableLiveData<Boolean> isLoadData;
     public int page;
     private static final int START_PAGE = 0;
 
     public CategoryViewModel() {
         categoryArticleList = new MutableLiveData<>();
+        isLoadData = new MutableLiveData<>();
+        isLoadData.setValue(false);
     }
 
     /**
@@ -27,6 +30,7 @@ public class CategoryViewModel extends ViewModel {
      * @param cid
      */
     public void getCategoryArticleListFromNetwork(int cid) {
+        isLoadData.setValue(page == 0);
         Http.getApi().getArticleListByCategoryId(page, cid)
                 .compose(RxUtils.rxSchedulerHelper())
                 .subscribe(new RxObserver<ArticleListBean>() {
@@ -48,6 +52,7 @@ public class CategoryViewModel extends ViewModel {
 
                     @Override
                     public void onComplete() {
+                        isLoadData.postValue(false);
                         page++;
                     }
                 });

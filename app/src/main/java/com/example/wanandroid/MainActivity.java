@@ -8,6 +8,7 @@ import com.example.wanandroid.base.BaseActivity;
 import com.example.wanandroid.ui.category.CategoryFragment;
 import com.example.wanandroid.ui.home.HomeFragment;
 import com.example.wanandroid.ui.information.InformationFragment;
+import com.example.wanandroid.ui.project.ProjectFragment;
 import com.example.wanandroid.utils.StatusBarUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -30,6 +31,7 @@ public class MainActivity extends BaseActivity {
     private CategoryFragment categoryFragment;
     private InformationFragment informationFragment;
     private BottomNavigationView navView;
+    private ProjectFragment projectFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +52,11 @@ public class MainActivity extends BaseActivity {
         fragmentList = new ArrayList<>();
         homeFragment = new HomeFragment();
         categoryFragment = new CategoryFragment();
+        projectFragment = new ProjectFragment();
         informationFragment = new InformationFragment();
         fragmentList.add(homeFragment);
         fragmentList.add(categoryFragment);
+        fragmentList.add(projectFragment);
         fragmentList.add(informationFragment);
     }
 
@@ -68,8 +72,11 @@ public class MainActivity extends BaseActivity {
                     case R.id.navigation_dashboard:
                         switchFragment(1);
                         break;
-                    case R.id.navigation_notifications:
+                    case R.id.navigation_project:
                         switchFragment(2);
+                        break;
+                    case R.id.navigation_notifications:
+                        switchFragment(3);
                         break;
                 }
                 return true;
@@ -110,16 +117,4 @@ public class MainActivity extends BaseActivity {
         lastPosition = position;
     }
 
-    private void setNavViewPosition(int position) {
-        switch (position) {
-            case 0:
-                break;
-            case 1:
-                navView.setSelectedItemId(R.id.navigation_dashboard);
-                break;
-            case 2:
-                navView.setSelectedItemId(R.id.navigation_notifications);
-                break;
-        }
-    }
 }

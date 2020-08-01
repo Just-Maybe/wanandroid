@@ -94,7 +94,7 @@ public class CategoryFragment extends Fragment implements View.OnClickListener {
                 public void run() {
                     categoryFragmentList.get(index).setSelectCategory(cid);
                 }
-            }, 500);
+            }, 300);
         }
     }
 
