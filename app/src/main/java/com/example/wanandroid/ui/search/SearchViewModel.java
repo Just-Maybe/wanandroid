@@ -112,7 +112,7 @@ public class SearchViewModel extends ViewModel {
                             searchResultList.setValue(response.getData().getArticleList());
                         } else {
                             searchResultList.getValue().addAll(response.getData().getArticleList());
-                            searchResultList.postValue(searchResultList.getValue());
+                            searchResultList.setValue(searchResultList.getValue());
                         }
                     }
 

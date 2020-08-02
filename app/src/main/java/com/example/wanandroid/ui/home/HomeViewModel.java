@@ -63,7 +63,7 @@ public class HomeViewModel extends ViewModel {
                             if (page == START_PAGE) {
                                 articleList.setValue(response.getData().getArticleList());
                             } else {
-                                articleList.postValue(response.getData().getArticleList());
+                                articleList.setValue(response.getData().getArticleList());
                             }
                         }
                     }

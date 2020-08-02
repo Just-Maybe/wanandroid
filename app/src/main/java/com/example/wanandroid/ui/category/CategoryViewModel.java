@@ -40,7 +40,7 @@ public class CategoryViewModel extends ViewModel {
                             if (page == START_PAGE) {
                                 categoryArticleList.setValue(articleList.getArticleList());
                             } else {
-                                categoryArticleList.postValue(articleList.getArticleList());
+                                categoryArticleList.setValue(articleList.getArticleList());
                             }
                         }
                     }
@@ -52,7 +52,7 @@ public class CategoryViewModel extends ViewModel {
 
                     @Override
                     public void onComplete() {
-                        isLoadData.postValue(false);
+                        isLoadData.setValue(false);
                         page++;
                     }
                 });

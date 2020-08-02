@@ -71,7 +71,11 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         adapter = new ArticleAdapter(this);
         rvResult.setAdapter(adapter);
         viewModel.searchResultList.observe(this, articleBeans -> {
-            adapter.addData(articleBeans);
+            if (viewModel.searchPage == 0) {
+                adapter.setData(articleBeans);
+            } else {
+                adapter.addData(articleBeans);
+            }
             adapter.notifyDataSetChanged();
             dataBinding.setSearchList(articleBeans);
         });
@@ -149,7 +153,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             public void afterTextChanged(Editable s) {
                 if (s.length() == 0) {
                     keyword = "";
-                    viewModel.searchResultList.postValue(new ArrayList<>());
+                    viewModel.searchResultList.setValue(new ArrayList<>());
                 }
             }
         });

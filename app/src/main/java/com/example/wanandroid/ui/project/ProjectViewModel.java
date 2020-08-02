@@ -45,7 +45,7 @@ public class ProjectViewModel extends ViewModel {
                             if (page == START_PAGE) {
                                 projectLiveData.setValue(response.getDataList());
                             } else {
-                                projectLiveData.postValue(response.getDataList());
+                                projectLiveData.setValue(response.getDataList());
                             }
                         }
                     }

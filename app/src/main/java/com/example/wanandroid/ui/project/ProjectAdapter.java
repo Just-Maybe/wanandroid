@@ -2,6 +2,7 @@ package com.example.wanandroid.ui.project;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,7 @@ import com.example.wanandroid.bean.ProjectListBean;
 import com.example.wanandroid.databinding.ItemProjectBinding;
 import com.example.wanandroid.databinding.ItemProjectCategoryBinding;
 import com.example.wanandroid.databinding.ItemRvProjectCategoryBinding;
+import com.example.wanandroid.ui.article_detail.ArticleWebViewActivity;
 import com.example.wanandroid.utils.DateUtils;
 
 import java.util.ArrayList;
@@ -127,6 +129,12 @@ public class ProjectAdapter extends RecyclerView.Adapter {
 
         public void initData(ProjectBean projectBean) {
             databinding.setProjectBean(projectBean);
+            databinding.getRoot().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ArticleWebViewActivity.launch(context,projectBean.getTitle(),projectBean.getLink());
+                }
+            });
         }
     }
 }
