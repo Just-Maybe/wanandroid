@@ -45,6 +45,7 @@ public class LoginViewModel extends ViewModel {
                     isLogin.setValue(true);
                     SpUtils.putString(SpUtils.username, response.getData().getUsername());
                     SpUtils.putInt(SpUtils.userId, response.getData().getUserId());
+                    SpUtils.putBoolean(SpUtils.isLogin,true);
                 }
             }
 

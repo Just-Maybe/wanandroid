@@ -11,6 +11,7 @@ public class SpUtils {
     public static final String update_hotKey_time = "update_hotKey_time";
     public static final String username = "username";
     public static final String userId = "user_id";
+    public static final String isLogin = "is_login";
 
 
     public static String getString(String strKey) {

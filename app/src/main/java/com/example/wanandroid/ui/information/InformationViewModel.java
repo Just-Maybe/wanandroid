@@ -4,16 +4,18 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.wanandroid.utils.SpUtils;
+
 public class InformationViewModel extends ViewModel {
 
-    private MutableLiveData<String> mText;
+    public MutableLiveData<Boolean> isLogin;
 
     public InformationViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is notifications fragment");
+        isLogin = new MutableLiveData<>();
+        isLogin.setValue(SpUtils.getBoolean(SpUtils.isLogin));
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public void getLoginStatus(){
+        isLogin.setValue(SpUtils.getBoolean(SpUtils.isLogin));
     }
 }

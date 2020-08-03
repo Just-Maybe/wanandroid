@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide;
  */
 public class ImageViewAttrAdapter {
 
-    @BindingAdapter({"app:imageUrl"})
+    @BindingAdapter({"imageUrl"})
     public static void loadImage(ImageView imageView, String url) {
         Glide.with(imageView.getContext())
                 .load(url)
