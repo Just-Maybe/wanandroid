@@ -8,6 +8,12 @@
 
         <import type="android.view.View" />
 
+        <import type="com.example.wanandroid.bean.CoinBean" />
+
+        <variable
+            name="coin"
+            type="CoinBean" />
+
         <variable
             name="isLogin"
             type="java.lang.Boolean" />
@@ -41,9 +47,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
                 android:text="@{isLogin?username:&quot;请先登录&quot; }"
-
                 android:textColor="@color/colorPrimaryText"
+                android:textSize="17sp"
                 app:layout_constraintLeft_toRightOf="@+id/iv_head"
                 app:layout_constraintTop_toTopOf="@+id/iv_head"
                 tools:text="qqhahaboy" />
@@ -54,21 +61,31 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="8dp"
+                android:text="@{String.format(&quot;总积分：%s &quot;,coin.coinCount)}"
                 android:visibility="@{isLogin?View.VISIBLE:View.GONE}"
                 app:layout_constraintLeft_toRightOf="@+id/iv_head"
-                app:layout_constraintTop_toBottomOf="@+id/tv_username"
-                tools:text="积分：100" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_username" />
 
             <TextView
                 android:id="@+id/tv_coin_level"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
+                android:text="@{String.format(&quot;LV %s &quot;,coin.level)}"
                 android:textColor="@color/colorRed"
                 android:visibility="@{isLogin?View.VISIBLE:View.GONE}"
                 app:layout_constraintLeft_toRightOf="@+id/tv_coin_count"
-                app:layout_constraintTop_toTopOf="@+id/tv_coin_count"
-                tools:text="LV 3" />
+                app:layout_constraintTop_toTopOf="@+id/tv_coin_count" />
+
+            <TextView
+                android:id="@+id/tv_rank"
+                android:layout_marginLeft="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.format(&quot;目前排名:%s &quot;,coin.rank)}"
+                android:visibility="@{isLogin?View.VISIBLE:View.GONE}"
+                app:layout_constraintLeft_toRightOf="@+id/tv_coin_level"
+                app:layout_constraintTop_toTopOf="@+id/tv_coin_count" />
 
             <View
                 android:layout_width="match_parent"

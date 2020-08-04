@@ -8,6 +8,7 @@ import android.widget.CompoundButton;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,7 +42,6 @@ public class ArticleAdapter extends RecyclerView.Adapter {
     private List<ArticleBean> articleList = new ArrayList<>();
     private List<ArticleBean> topArticleList = new ArrayList<>();
     private onClickItemListener listener;
-
 
     public ArticleAdapter(Context context) {
         this.context = context;
@@ -149,7 +149,9 @@ public class ArticleAdapter extends RecyclerView.Adapter {
             binding.cbCollection.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+                    if (listener != null) {
+                        listener.onCollectedArticle(isChecked,bean);
+                    }
                 }
             });
 
@@ -164,7 +166,7 @@ public class ArticleAdapter extends RecyclerView.Adapter {
             binding.tvSuperCategory.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(listener!=null){
+                    if (listener != null) {
                         listener.onClickCategory(bean);
                     }
                 }
@@ -202,6 +204,8 @@ public class ArticleAdapter extends RecyclerView.Adapter {
         void onClickSubCategory(ArticleBean articleBean); //父分类
 
         void onClickCategory(ArticleBean bean); // 子分类
+
+        void onCollectedArticle(boolean isCollect,ArticleBean bean);  //是否收藏文章
     }
 
     private static class ArticleDiffCallback extends DiffUtil.ItemCallback<ArticleBean> {

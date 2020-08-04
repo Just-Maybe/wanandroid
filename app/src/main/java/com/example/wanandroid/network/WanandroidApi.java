@@ -3,6 +3,7 @@ package com.example.wanandroid.network;
 import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.ArticleListBean;
 import com.example.wanandroid.bean.BannerBean;
+import com.example.wanandroid.bean.CoinBean;
 import com.example.wanandroid.bean.HotKeyBean;
 import com.example.wanandroid.bean.LoginBean;
 import com.example.wanandroid.bean.ProjectListBean;
@@ -128,6 +129,12 @@ public interface WanandroidApi {
 
 
     /**
+     * 获取个人积分
+     */
+    @GET("lg/coin/userinfo/json")
+    Observable<ResponseEntity<CoinBean>> getUserCoin();
+
+    /**
      * 收藏文章列表
      */
     @GET("collect/list/{page}/json")
@@ -136,9 +143,8 @@ public interface WanandroidApi {
     /**
      * 收藏站内文章
      */
-    @FormUrlEncoded
     @POST("lg/collect/{id}/json")
-    Observable<ResponseEntity<ArticleListBean>> collectArticleById(@Path("id") int id);
+    Observable<ResponseEntity<String>> collectArticleById(@Path("id") int id);
 
     /**
      * 收藏站外文章
@@ -152,9 +158,8 @@ public interface WanandroidApi {
     /**
      * 文章列表-取消收藏
      */
-    @FormUrlEncoded
     @POST("lg/uncollect_originId/{id}/json")
-    Observable<ResponseEntity<ArticleListBean>> uncollectFromArticlePage(@Path("id") int id);
+    Observable<ResponseEntity<String>> uncollectFromArticlePage(@Path("id") int id);
 
     /**
      * 我的收藏页面（该页面包含自己录入的内容）-取消收藏

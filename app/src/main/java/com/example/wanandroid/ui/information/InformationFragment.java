@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.example.wanandroid.R;
+import com.example.wanandroid.bean.CoinBean;
 import com.example.wanandroid.databinding.FragmentInformationBinding;
 import com.example.wanandroid.ui.login.LoginActivity;
 import com.example.wanandroid.utils.SpUtils;
@@ -39,6 +40,7 @@ public class InformationFragment extends Fragment implements View.OnClickListene
     public void onResume() {
         super.onResume();
         infoViewModel.getLoginStatus();
+        infoViewModel.getUserCoinFromNetwork();
     }
 
     private void subscribeUI() {
@@ -49,6 +51,9 @@ public class InformationFragment extends Fragment implements View.OnClickListene
             if (!isLogin) {
                 dataBinding.ivHead.setOnClickListener(v -> LoginActivity.launch(getActivity()));
             }
+        });
+        infoViewModel.coinLiveData.observe(getViewLifecycleOwner(), coinBean -> {
+            dataBinding.setCoin(coinBean);
         });
     }
 

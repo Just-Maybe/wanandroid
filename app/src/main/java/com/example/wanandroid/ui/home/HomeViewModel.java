@@ -122,4 +122,45 @@ public class HomeViewModel extends ViewModel {
                 });
     }
 
+    /**
+     * 收藏文章
+     *
+     * @param id
+     */
+    public void collectArticle(int id) {
+        Http.getApi().collectArticleById(id)
+                .compose(RxUtils.rxSchedulerHelper())
+                .subscribe(new RxObserver<String>() {
+                    @Override
+                    public void onSuccess(String s) {
+                        Toast.makeText(WanandroidApplication.applicationContext, "收藏成功", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(String errorMsg, int errorCode) {
+
+                    }
+                });
+    }
+
+    /**
+     * 取消收藏文章
+     *
+     * @param id
+     */
+    public void uncollectArticle(int id) {
+        Http.getApi().uncollectFromArticlePage(id)
+                .compose(RxUtils.rxSchedulerHelper())
+                .subscribe(new RxObserver<String>() {
+                    @Override
+                    public void onSuccess(String s) {
+                        Toast.makeText(WanandroidApplication.applicationContext, "已取消收藏", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(String errorMsg, int errorCode) {
+
+                    }
+                });
+    }
 }

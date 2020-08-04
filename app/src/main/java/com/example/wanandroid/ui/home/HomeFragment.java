@@ -135,6 +135,15 @@ public class HomeFragment extends Fragment {
                 ((MainActivity) getActivity()).switchFragment(1);
                 rvArticle.postDelayed(() -> ((MainActivity) getActivity()).getCategoryFragment().selectCategory(articleBean.getSuperChapterName()), 500);
             }
+
+            @Override
+            public void onCollectedArticle(boolean isCollect, ArticleBean bean) {
+                if (isCollect) {
+                    articleViewModel.collectArticle(bean.getId());
+                } else {
+                    articleViewModel.uncollectArticle(bean.getId());
+                }
+            }
         });
     }
 

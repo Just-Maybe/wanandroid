@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.wanandroid.GlobalViewModel;
 import com.example.wanandroid.R;
+import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.CategoryTreeBean;
 import com.example.wanandroid.databinding.FragmentCategoryDetailBinding;
 import com.example.wanandroid.listener.RvLoadMoreListener;
@@ -129,6 +130,27 @@ public class CategoryDetailFragment extends Fragment {
             @Override
             public void onChanged(Boolean isLoadData) {
                 databinding.refreshLayout.setRefreshing(isLoadData);
+            }
+        });
+
+        adapter.setListener(new ArticleAdapter.onClickItemListener() {
+            @Override
+            public void onClickSubCategory(ArticleBean articleBean) {
+
+            }
+
+            @Override
+            public void onClickCategory(ArticleBean bean) {
+
+            }
+
+            @Override
+            public void onCollectedArticle(boolean isCollect, ArticleBean bean) {
+                if (isCollect) {
+                    categoryViewModel.collectArticle(bean.getId());
+                } else {
+                    categoryViewModel.uncollectArticle(bean.getId());
+                }
             }
         });
     }
