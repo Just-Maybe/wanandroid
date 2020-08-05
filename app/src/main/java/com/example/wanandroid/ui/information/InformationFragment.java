@@ -1,5 +1,7 @@
 package com.example.wanandroid.ui.information;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.example.wanandroid.R;
 import com.example.wanandroid.databinding.FragmentInformationBinding;
 import com.example.wanandroid.ui.login.LoginActivity;
+import com.example.wanandroid.ui.search.SearchActivity;
 import com.example.wanandroid.utils.SpUtils;
 
 public class InformationFragment extends Fragment implements View.OnClickListener {
@@ -63,7 +66,11 @@ public class InformationFragment extends Fragment implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.layout_coin:
-                CoinActivity.launch(getActivity());
+                Intent intent = new Intent(getActivity(), CoinActivity.class);
+                View sharedView = dataBinding.tvCoin;
+                String transitionName = "myCoin";
+                ActivityOptions transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(getActivity(), sharedView, transitionName);
+                startActivity(intent, transitionActivityOptions.toBundle());
                 break;
         }
     }

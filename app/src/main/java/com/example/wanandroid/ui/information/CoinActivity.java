@@ -49,6 +49,7 @@ public class CoinActivity extends BaseActivity {
         databinding.rvCoin.setLayoutManager(new LinearLayoutManager(this));
         databinding.rvCoin.setAdapter(adapter);
         databinding.layoutTitle.tvTitle.setText("我的积分");
+        databinding.layoutTitle.tvTitle.setTransitionName("myCoin");
     }
 
     private void initListener() {
