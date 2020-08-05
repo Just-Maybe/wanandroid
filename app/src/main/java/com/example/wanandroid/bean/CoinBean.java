@@ -1,30 +1,49 @@
 package com.example.wanandroid.bean;
 
 /**
- * Created by Miracle on 2020/8/4
+ * Created by Miracle on 2020/8/5
  * Email: zhaoqirong96@gmail.com
  * Describe:
  */
 public class CoinBean {
+
     /**
-     * level : 2
-     * rank : 3442
+     * date : 1596621475000
+     * reason : 签到
+     * id : 269971
+     * type : 1
+     * userName : qqhahaboy
      * userId : 71652
-     * coinCount : 165
-     * username : q**ahaboy
+     * coinCount : 21
+     * desc : 2020-08-05 17:57:55 签到 , 积分：10 + 11
      */
-    private int level;
-    private String rank;
+    private long date;
+    private String reason;
+    private int id;
+    private int type;
+    private String userName;
     private int userId;
     private int coinCount;
-    private String username;
+    private String desc;
 
-    public void setLevel(int level) {
-        this.level = level;
+    public void setDate(long date) {
+        this.date = date;
     }
 
-    public void setRank(String rank) {
-        this.rank = rank;
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public void setUserId(int userId) {
@@ -35,16 +54,28 @@ public class CoinBean {
         this.coinCount = coinCount;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
-    public int getLevel() {
-        return level;
+    public long getDate() {
+        return date;
     }
 
-    public String getRank() {
-        return rank;
+    public String getReason() {
+        return reason;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public String getUserName() {
+        return userName;
     }
 
     public int getUserId() {
@@ -55,7 +86,7 @@ public class CoinBean {
         return coinCount;
     }
 
-    public String getUsername() {
-        return username;
+    public String getDesc() {
+        return desc;
     }
 }

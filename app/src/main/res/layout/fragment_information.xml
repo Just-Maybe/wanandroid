@@ -8,11 +8,11 @@
 
         <import type="android.view.View" />
 
-        <import type="com.example.wanandroid.bean.CoinBean" />
+        <import type="com.example.wanandroid.bean.MyCoinBean" />
 
         <variable
             name="coin"
-            type="CoinBean" />
+            type="com.example.wanandroid.bean.MyCoinBean" />
 
         <variable
             name="isLogin"
@@ -132,6 +132,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
+            android:id="@+id/layout_coin"
             android:layout_height="80dp">
 
             <TextView

@@ -51,8 +51,8 @@ public class ArticleWebViewActivity extends AppCompatActivity implements View.On
     private void initData() {
         title = getIntent().getStringExtra("title");
         link = getIntent().getStringExtra("link");
-        dataBinding.ivBack.setOnClickListener(this);
-        dataBinding.tvTitle.setText(title);
+        dataBinding.layoutTitle.ivBack.setOnClickListener(this);
+        dataBinding.layoutTitle.tvTitle.setText(title);
         dataBinding.webView.loadUrl(link);
     }
 

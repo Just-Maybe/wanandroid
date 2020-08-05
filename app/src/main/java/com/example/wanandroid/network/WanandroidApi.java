@@ -4,6 +4,8 @@ import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.ArticleListBean;
 import com.example.wanandroid.bean.BannerBean;
 import com.example.wanandroid.bean.CoinBean;
+import com.example.wanandroid.bean.CoinListBean;
+import com.example.wanandroid.bean.MyCoinBean;
 import com.example.wanandroid.bean.HotKeyBean;
 import com.example.wanandroid.bean.LoginBean;
 import com.example.wanandroid.bean.ProjectListBean;
@@ -132,7 +134,14 @@ public interface WanandroidApi {
      * 获取个人积分
      */
     @GET("lg/coin/userinfo/json")
-    Observable<ResponseEntity<CoinBean>> getUserCoin();
+    Observable<ResponseEntity<MyCoinBean>> getUserCoin();
+
+    /**
+     * 获取积分列表
+     * @return
+     */
+    @GET("lg/coin/list/{page}/json")
+    Observable<ResponseEntity<CoinListBean>> getCoinList(@Path("page")int page);
 
     /**
      * 收藏文章列表

@@ -1,8 +1,12 @@
 package com.example.wanandroid;
 
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.wanandroid.base.BaseActivity;
 import com.example.wanandroid.ui.category.CategoryFragment;
@@ -11,14 +15,6 @@ import com.example.wanandroid.ui.information.InformationFragment;
 import com.example.wanandroid.ui.project.ProjectFragment;
 import com.example.wanandroid.utils.StatusBarUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.NavigationUI;
 
 import java.util.ArrayList;
 import java.util.List;

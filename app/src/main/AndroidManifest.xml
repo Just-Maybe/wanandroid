@@ -28,6 +28,7 @@
         <activity android:name=".ui.article_detail.ArticleWebViewActivity" />
         <activity android:name=".ui.search.SearchActivity" />
         <activity android:name=".ui.login.LoginActivity" />
+        <activity android:name=".ui.information.CoinActivity"/>
     </application>
 
 </manifest>

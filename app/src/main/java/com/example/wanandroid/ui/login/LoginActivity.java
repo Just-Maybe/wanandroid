@@ -41,6 +41,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         subscribe();
     }
 
+
     private void initView() {
         databinding.setIsLogin(isLogin);
         databinding.ivBack.setOnClickListener(this);

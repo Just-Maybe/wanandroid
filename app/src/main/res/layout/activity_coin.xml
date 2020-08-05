@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -15,8 +14,8 @@
             android:id="@+id/layout_title"
             layout="@layout/layout_title" />
 
-        <WebView
-            android:id="@+id/webView"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_coin"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
