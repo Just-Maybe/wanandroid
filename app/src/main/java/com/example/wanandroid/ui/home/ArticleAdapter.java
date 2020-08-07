@@ -146,11 +146,12 @@ public class ArticleAdapter extends RecyclerView.Adapter {
                     ArticleWebViewActivity.launch(context, bean.getTitle(), bean.getLink());
                 }
             });
-            binding.cbCollection.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            binding.cbCollection.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                public void onClick(View v) {
                     if (listener != null) {
-                        listener.onCollectedArticle(isChecked,bean);
+                        bean.setCollect(!bean.isCollect());
+                        listener.onCollectedArticle(bean.isCollect(), bean);
                     }
                 }
             });
@@ -205,7 +206,7 @@ public class ArticleAdapter extends RecyclerView.Adapter {
 
         void onClickCategory(ArticleBean bean); // 子分类
 
-        void onCollectedArticle(boolean isCollect,ArticleBean bean);  //是否收藏文章
+        void onCollectedArticle(boolean isCollect, ArticleBean bean);  //是否收藏文章
     }
 
     private static class ArticleDiffCallback extends DiffUtil.ItemCallback<ArticleBean> {
