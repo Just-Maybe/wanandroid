@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.bumptech.glide.Glide;
 import com.example.wanandroid.R;
 import com.example.wanandroid.databinding.FragmentInformationBinding;
+import com.example.wanandroid.ui.arithmetic.ArithmeticDetailActivity;
 import com.example.wanandroid.ui.login.LoginActivity;
 import com.example.wanandroid.ui.search.SearchActivity;
 import com.example.wanandroid.utils.SpUtils;
@@ -36,6 +37,7 @@ public class InformationFragment extends Fragment implements View.OnClickListene
 
     private void initView() {
         dataBinding.layoutCoin.setOnClickListener(this);
+        dataBinding.layoutOffer.setOnClickListener(this);
     }
 
     private void initData() {
@@ -71,6 +73,10 @@ public class InformationFragment extends Fragment implements View.OnClickListene
                 String transitionName = "myCoin";
                 ActivityOptions transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(getActivity(), sharedView, transitionName);
                 startActivity(intent, transitionActivityOptions.toBundle());
+                break;
+            case R.id.layout_offer:
+                Intent arithmetic = new Intent(getActivity(), ArithmeticDetailActivity.class);
+                startActivity(arithmetic);
                 break;
         }
     }
