@@ -3,6 +3,7 @@ package com.example.wanandroid.ui.information;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -26,7 +27,7 @@ import java.util.List;
  * Email: zhaoqirong96@gmail.com
  * Describe:
  */
-public class CoinActivity extends BaseActivity {
+public class CoinActivity extends BaseActivity implements View.OnClickListener {
     private InformationViewModel viewModel;
     private ActivityCoinBinding databinding;
     private CoinAdapter adapter;
@@ -45,6 +46,7 @@ public class CoinActivity extends BaseActivity {
     }
 
     private void initView() {
+        databinding.layoutTitle.ivBack.setOnClickListener(this);
         adapter = new CoinAdapter(this);
         databinding.rvCoin.setLayoutManager(new LinearLayoutManager(this));
         databinding.rvCoin.setAdapter(adapter);
@@ -75,6 +77,15 @@ public class CoinActivity extends BaseActivity {
                 adapter.addData(coinBeans);
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.iv_back:
+                finish();
+                break;
+        }
     }
 
     public static void launch(Context context) {

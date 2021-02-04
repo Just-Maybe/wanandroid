@@ -1,12 +1,9 @@
 package com.example.wanandroid.ui.search;
 
-import android.widget.Toast;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.wanandroid.WanandroidApplication;
 import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.ArticleListBean;
 import com.example.wanandroid.bean.HotKeyBean;
@@ -15,9 +12,7 @@ import com.example.wanandroid.network.Http;
 import com.example.wanandroid.utils.AppExecutors;
 import com.example.wanandroid.utils.RxUtils;
 import com.example.wanandroid.utils.SpUtils;
-import com.example.wanandroid.utils.StringUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observer;

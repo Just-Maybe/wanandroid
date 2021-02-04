@@ -6,12 +6,16 @@ import androidx.lifecycle.ViewModel;
 import com.example.wanandroid.base.RxObserver;
 import com.example.wanandroid.bean.CoinBean;
 import com.example.wanandroid.bean.CoinListBean;
+import com.example.wanandroid.bean.LoginBean;
 import com.example.wanandroid.bean.MyCoinBean;
+import com.example.wanandroid.bean.ResponseEntity;
 import com.example.wanandroid.network.Http;
 import com.example.wanandroid.utils.RxUtils;
 import com.example.wanandroid.utils.SpUtils;
 
 import java.util.List;
+
+import io.reactivex.functions.Consumer;
 
 public class InformationViewModel extends ViewModel {
 
@@ -72,6 +76,27 @@ public class InformationViewModel extends ViewModel {
                     public void onComplete() {
                         super.onComplete();
                         coinPage++;
+                    }
+                });
+    }
+
+    /**
+     * 登出
+     */
+    public void logout() {
+        Http.getApi().logout().compose(RxUtils.rxSchedulerHelper())
+                .subscribe(new RxObserver<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        isLogin.setValue(false);
+                        SpUtils.putBoolean(SpUtils.isLogin, false);
+                        SpUtils.putString(SpUtils.username, "");
+                        SpUtils.putInt(SpUtils.userId, -1);
+                    }
+
+                    @Override
+                    public void onFailure(String errorMsg, int errorCode) {
+
                     }
                 });
     }

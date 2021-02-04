@@ -40,11 +40,7 @@ public class CategoryViewModel extends ViewModel {
                     @Override
                     public void onSuccess(ArticleListBean articleList) {
                         if (articleList.getArticleList() != null && articleList.getArticleList().size() > 0) {
-                            if (page == START_PAGE) {
-                                categoryArticleList.setValue(articleList.getArticleList());
-                            } else {
-                                categoryArticleList.setValue(articleList.getArticleList());
-                            }
+                            categoryArticleList.setValue(articleList.getArticleList());
                         }
                     }
 

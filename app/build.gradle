@@ -40,6 +40,7 @@ android {
             version "3.10.2"
         }
     }
+    ndkVersion '21.0.6113669'
 }
 
 dependencies {
@@ -81,4 +82,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+//    debugImplementation 'me.ele:uetool:1.2.9'
+//    releaseImplementation 'me.ele:uetool-no-op:1.2.9'
 }

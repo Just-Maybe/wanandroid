@@ -125,9 +125,8 @@ public interface WanandroidApi {
      *
      * @return
      */
-    @FormUrlEncoded
-    @POST("logout/json")
-    Observable<ResponseEntity<LoginBean>> logout();
+    @GET("user/logout/json")
+    Observable<ResponseEntity<Void>> logout();
 
 
     /**
