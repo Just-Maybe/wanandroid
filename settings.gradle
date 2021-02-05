@@ -1,2 +1,3 @@
+include ':toollibrary'
 include ':app'
 rootProject.name = "wanandroid"

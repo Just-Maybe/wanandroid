@@ -30,7 +30,7 @@ public class ProjectFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         databinding = DataBindingUtil.inflate(inflater, R.layout.fragment_project, container, false);
-        viewModel = new ViewModelProvider(this).get(ProjectViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(ProjectViewModel.class);
         initView();
         subscribeUI();
         iniData();

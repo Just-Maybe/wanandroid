@@ -65,6 +65,10 @@ public class ProjectCategoryAdapter extends RecyclerView.Adapter {
             databinding.tvCategoryName.setText(Html.fromHtml(bean.getName()));
             Random random = new Random();
             Glide.with(context).load(covers[random.nextInt(10)]).into(databinding.ivCover);
+            databinding.tvMore.setOnClickListener(v -> {
+
+
+            });
         }
     }
 }
