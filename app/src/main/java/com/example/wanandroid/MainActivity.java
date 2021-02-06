@@ -13,6 +13,7 @@ import com.example.wanandroid.ui.category.CategoryFragment;
 import com.example.wanandroid.ui.home.HomeFragment;
 import com.example.wanandroid.ui.information.InformationFragment;
 import com.example.wanandroid.ui.project.ProjectFragment;
+import com.example.wanandroid.utils.LogUtils;
 import com.example.wanandroid.utils.StatusBarUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -44,6 +45,7 @@ public class MainActivity extends BaseActivity {
         globalViewModel.getCategoryTreeListFromNetwork();
     }
 
+
     private void initData() {
         fragmentList = new ArrayList<>();
         homeFragment = new HomeFragment();
@@ -58,25 +60,22 @@ public class MainActivity extends BaseActivity {
 
     private void initNavigationView() {
         navView = findViewById(R.id.nav_view);
-        navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.navigation_home:
-                        switchFragment(0);
-                        break;
-                    case R.id.navigation_dashboard:
-                        switchFragment(1);
-                        break;
-                    case R.id.navigation_project:
-                        switchFragment(2);
-                        break;
-                    case R.id.navigation_notifications:
-                        switchFragment(3);
-                        break;
-                }
-                return true;
+        navView.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+                    switchFragment(0);
+                    break;
+                case R.id.navigation_dashboard:
+                    switchFragment(1);
+                    break;
+                case R.id.navigation_project:
+                    switchFragment(2);
+                    break;
+                case R.id.navigation_notifications:
+                    switchFragment(3);
+                    break;
             }
+            return true;
         });
     }
 

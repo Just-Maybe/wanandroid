@@ -45,7 +45,7 @@ public class InformationFragment extends Fragment implements View.OnClickListene
     }
 
     private void initData() {
-        infoViewModel.getUserCoinFromNetwork();
+
     }
 
     @Override
@@ -63,6 +63,8 @@ public class InformationFragment extends Fragment implements View.OnClickListene
             if (!isLogin) {
                 dataBinding.ivHead.setOnClickListener(v -> LoginActivity.launch(getActivity()));
                 dataBinding.layoutCoin.setOnClickListener(v -> LoginActivity.launch(getActivity()));
+            } else {
+                infoViewModel.getUserCoinFromNetwork();
             }
         });
         infoViewModel.coinLiveData.observe(getViewLifecycleOwner(), coinBean -> {
