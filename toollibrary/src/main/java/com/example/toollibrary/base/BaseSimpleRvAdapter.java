@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -19,14 +21,14 @@ import java.util.List;
  *
  * @param <T>
  */
-public abstract class BaseSimpleRvAdapter<T, VH extends BaseViewHolder> extends RecyclerView.Adapter<VH> {
+public abstract class BaseSimpleRvAdapter<T, DB extends ViewDataBinding,VH extends BaseViewHolder> extends RecyclerView.Adapter<VH> {
     protected Context mContext;
     private OnItemClickListener<T> listener;
     protected List<T> mDataList = new ArrayList<>();
     protected LayoutInflater mInflater;
     protected int mResId;
 
-    public BaseSimpleRvAdapter(Context context,@IdRes int resId) {
+    public BaseSimpleRvAdapter(Context context, @IdRes int resId) {
         this.mContext = context;
         this.mResId = resId;
     }
@@ -34,8 +36,9 @@ public abstract class BaseSimpleRvAdapter<T, VH extends BaseViewHolder> extends 
     @NonNull
     @Override
     public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View root = LayoutInflater.from(mContext).inflate(mResId,parent,false);
-        return (VH) new BaseViewHolder(root);
+        mInflater = LayoutInflater.from(mContext);
+        ViewDataBinding dataBinding = DataBindingUtil.inflate(mInflater, mResId, parent, false);
+        return (VH) new BaseViewHolder(dataBinding);
     }
 
     @Override

@@ -111,7 +111,8 @@ public class ProjectAdapter extends RecyclerView.Adapter {
         }
 
         public void initData() {
-            adapter = new ProjectCategoryAdapter(context, projectCategoryList);
+            adapter = new ProjectCategoryAdapter(context, R.layout.item_project_category);
+            adapter.updateData(projectCategoryList);
             LinearLayoutManager layoutManager = new LinearLayoutManager(context);
             layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             databinding.rvProjectCategory.setLayoutManager(layoutManager);

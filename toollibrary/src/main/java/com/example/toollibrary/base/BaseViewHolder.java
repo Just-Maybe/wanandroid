@@ -5,16 +5,17 @@ import android.view.View;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
+import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class BaseViewHolder extends RecyclerView.ViewHolder {
+public class BaseViewHolder<DB extends ViewDataBinding> extends RecyclerView.ViewHolder {
     private final SparseArray<View> views;
-    protected View root;
+    public DB dataBinding;
 
-    public BaseViewHolder(@NonNull View itemView) {
-        super(itemView);
+    public BaseViewHolder(@NonNull DB binding) {
+        super(binding.getRoot());
         this.views = new SparseArray<>();
-        this.root = itemView;
+        this.dataBinding = binding;
     }
 
     public <T extends View> T getView(@IdRes int viewId) {
@@ -24,6 +25,10 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
             views.put(viewId, view);
         }
         return (T) view;
+    }
+
+    public void setImage(int viewId, String url) {
+
     }
 
     public void setViewClickListener(int viewId, View.OnClickListener listener) {

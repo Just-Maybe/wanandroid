@@ -5,8 +5,9 @@ import android.content.Context;
 import com.example.toollibrary.base.BaseSimpleRvAdapter;
 import com.example.toollibrary.base.BaseViewHolder;
 import com.example.wanandroid.bean.ProjectBean;
+import com.example.wanandroid.databinding.ItemProjectBinding;
 
-public class CategoryProjectListAdapter extends BaseSimpleRvAdapter<ProjectBean, BaseViewHolder> {
+public class CategoryProjectListAdapter extends BaseSimpleRvAdapter<ProjectBean, BaseViewHolder<ItemProjectBinding>> {
 
 
     public CategoryProjectListAdapter(Context context, int resId) {
@@ -14,9 +15,8 @@ public class CategoryProjectListAdapter extends BaseSimpleRvAdapter<ProjectBean,
     }
 
     @Override
-    public void convert(BaseViewHolder holder, int position, ProjectBean projectBean) {
-
+    public void convert(BaseViewHolder<ItemProjectBinding> holder, int position, ProjectBean projectBean) {
+        holder.dataBinding.setProjectBean(projectBean);
     }
-
 
 }
