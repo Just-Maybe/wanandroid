@@ -21,7 +21,7 @@ import java.util.List;
  *
  * @param <T>
  */
-public abstract class BaseSimpleRvAdapter<T, DB extends ViewDataBinding,VH extends BaseViewHolder> extends RecyclerView.Adapter<VH> {
+public abstract class BaseSimpleRvAdapter<T, DB extends ViewDataBinding,VH extends BaseViewHolder<DB>> extends RecyclerView.Adapter<VH> {
     protected Context mContext;
     private OnItemClickListener<T> listener;
     protected List<T> mDataList = new ArrayList<>();
@@ -37,9 +37,11 @@ public abstract class BaseSimpleRvAdapter<T, DB extends ViewDataBinding,VH exten
     @Override
     public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         mInflater = LayoutInflater.from(mContext);
-        ViewDataBinding dataBinding = DataBindingUtil.inflate(mInflater, mResId, parent, false);
-        return (VH) new BaseViewHolder(dataBinding);
+        DB dataBinding = DataBindingUtil.inflate(mInflater, mResId, parent, false);
+        return  onCreateVH(dataBinding);
     }
+
+    protected abstract VH onCreateVH(DB dataBinding);
 
     @Override
     public void onBindViewHolder(@NonNull VH holder, int position) {

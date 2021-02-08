@@ -22,12 +22,17 @@ import java.util.Random;
 /**
  * Created by Miracle on 2020/8/1
  * Email: zhaoqirong96@gmail.com
- * Describe: 项目不同分类的列表
+ * Describe: 横向分类的列表
  */
-public class ProjectCategoryAdapter extends BaseSimpleRvAdapter<ProjectCategoryBean, ProjectCategoryViewHolder> {
+public class ProjectCategoryAdapter extends BaseSimpleRvAdapter<ProjectCategoryBean, ItemProjectCategoryBinding,ProjectCategoryViewHolder> {
 
     public ProjectCategoryAdapter(Context context, int resId) {
         super(context, resId);
+    }
+
+    @Override
+    protected ProjectCategoryViewHolder onCreateVH(ItemProjectCategoryBinding dataBinding) {
+        return new ProjectCategoryViewHolder(dataBinding);
     }
 
     @Override
