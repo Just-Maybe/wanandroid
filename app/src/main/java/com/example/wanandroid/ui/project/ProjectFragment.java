@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.wanandroid.R;
+import com.example.wanandroid.bean.ProjectCategoryBean;
 import com.example.wanandroid.databinding.FragmentProjectBinding;
 
 /**
@@ -44,6 +45,10 @@ public class ProjectFragment extends Fragment {
 
     private void initView() {
         adapter = new ProjectAdapter(getActivity());
+        adapter.setListener((view, projectCategoryBean) -> {
+            CategoryProjectDialogFragment dialogFragment = new CategoryProjectDialogFragment();
+            dialogFragment.show(getChildFragmentManager(), "");
+        });
         databinding.rvProject.setLayoutManager(new LinearLayoutManager(getActivity()));
         databinding.rvProject.setAdapter(adapter);
         databinding.refreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorAccent));

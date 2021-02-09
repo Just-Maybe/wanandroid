@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.toollibrary.base.BaseBindingRvAdapter;
 import com.example.wanandroid.R;
 import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.ProjectBean;
@@ -36,6 +37,18 @@ public class ProjectAdapter extends RecyclerView.Adapter {
     private Context context;
     private List<ProjectCategoryBean> projectCategoryList;
     private List<ProjectBean> projectListList;
+    protected OnItemClickListener listener;
+
+    public interface OnItemClickListener {
+
+        void onItemClick(View view, ProjectCategoryBean projectCategoryBean);
+
+    }
+
+    public void setListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
 
     public ProjectAdapter(Context context) {
         this.context = context;
@@ -103,7 +116,7 @@ public class ProjectAdapter extends RecyclerView.Adapter {
 
     class ProjectCategoryViewHolder extends RecyclerView.ViewHolder {
         ItemRvProjectCategoryBinding databinding;
-        ProjectCategoryAdapter adapter;
+        ProjectCategoryDataBindingAdapter adapter;
 
         public ProjectCategoryViewHolder(ItemRvProjectCategoryBinding databinding) {
             super(databinding.getRoot());
@@ -111,12 +124,17 @@ public class ProjectAdapter extends RecyclerView.Adapter {
         }
 
         public void initData() {
-            adapter = new ProjectCategoryAdapter(context, R.layout.item_project_category);
+            adapter = new ProjectCategoryDataBindingAdapter(context, R.layout.item_project_category);
             adapter.updateData(projectCategoryList);
             LinearLayoutManager layoutManager = new LinearLayoutManager(context);
             layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             databinding.rvProjectCategory.setLayoutManager(layoutManager);
             databinding.rvProjectCategory.setAdapter(adapter);
+            adapter.setListener((View view, ProjectCategoryBean projectCategoryBean) -> {
+                if (listener != null) {
+                    listener.onItemClick(view, projectCategoryBean);
+                }
+            });
         }
     }
 
@@ -133,7 +151,7 @@ public class ProjectAdapter extends RecyclerView.Adapter {
             databinding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ArticleWebViewActivity.launch(context,projectBean.getTitle(),projectBean.getLink());
+                    ArticleWebViewActivity.launch(context, projectBean.getTitle(), projectBean.getLink());
                 }
             });
         }

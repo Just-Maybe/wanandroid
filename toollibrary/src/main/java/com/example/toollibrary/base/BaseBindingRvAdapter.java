@@ -4,10 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,12 +20,15 @@ import java.util.List;
  *
  * @param <T>
  */
-public abstract class BaseBindingRvAdapter<T,DB extends ViewDataBinding> extends RecyclerView.Adapter<BaseBindingViewHolder<DB>> {
+public abstract class BaseBindingRvAdapter<T, DB extends ViewDataBinding> extends RecyclerView.Adapter<BaseBindingViewHolder<DB>> {
+    private static final int NORMAL = 882;
+    private static final int FOOT = 382;
     protected Context mContext;
-    private OnItemClickListener<T> listener;
+    protected OnItemClickListener<T> listener;
     protected List<T> mDataList = new ArrayList<>();
     protected LayoutInflater mInflater;
     protected int mResId;
+    private ViewDataBinding footDataBinding;
 
     public BaseBindingRvAdapter(Context context, @IdRes int resId) {
         this.mContext = context;
@@ -33,15 +39,46 @@ public abstract class BaseBindingRvAdapter<T,DB extends ViewDataBinding> extends
     @Override
     public BaseBindingViewHolder<DB> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         mInflater = LayoutInflater.from(mContext);
-        View itemView=mInflater.inflate(mResId,parent,false);
-        return new BaseBindingViewHolder<>(itemView);
+        ViewDataBinding dataBinding;
+        switch (viewType) {
+            case NORMAL:
+                dataBinding = DataBindingUtil.inflate(mInflater, mResId, parent, false);
+                return new BaseBindingViewHolder(dataBinding);
+            case FOOT:
+                footDataBinding = DataBindingUtil.inflate(mInflater, getFootViewResId(), parent, false);
+                return createFootViewHolder(footDataBinding);
+        }
+        dataBinding = DataBindingUtil.inflate(mInflater, mResId, parent, false);
+        return new BaseBindingViewHolder(dataBinding);
     }
 
+    protected BaseBindingViewHolder createFootViewHolder(ViewDataBinding dataBinding) {
+        return null;
+    }
 
+    protected int getFootViewResId() {
+        return -1;
+    }
+
+    protected boolean hasFootView() {
+        return false;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == getItemCount() - 1) {
+            return FOOT;
+        }
+        return NORMAL;
+    }
 
     @Override
     public void onBindViewHolder(@NonNull BaseBindingViewHolder<DB> holder, int position) {
-        convert(holder, position, mDataList.get(position));
+        switch (getItemViewType(position)) {
+            case NORMAL:
+                convert(holder, position, mDataList.get(position));
+                break;
+        }
     }
 
 
@@ -50,6 +87,9 @@ public abstract class BaseBindingRvAdapter<T,DB extends ViewDataBinding> extends
 
     @Override
     public int getItemCount() {
+        if (hasFootView()) {
+            return mDataList.size() + 1;
+        }
         return mDataList.size();
     }
 
@@ -57,6 +97,10 @@ public abstract class BaseBindingRvAdapter<T,DB extends ViewDataBinding> extends
     public interface OnItemClickListener<T> {
 
         void onItemClick(View view, T t);
+    }
+
+    public void setListener(OnItemClickListener<T> listener) {
+        this.listener = listener;
     }
 
     public void updateData(List<T> dataList) {

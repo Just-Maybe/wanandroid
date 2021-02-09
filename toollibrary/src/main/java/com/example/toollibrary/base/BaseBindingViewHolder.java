@@ -13,8 +13,8 @@ public class BaseBindingViewHolder<DB extends ViewDataBinding> extends RecyclerV
     public DB dataBinding;
 
 
-    public BaseBindingViewHolder(@NonNull View itemView) {
-        super(itemView);
+    public BaseBindingViewHolder(@NonNull DB dataBinding) {
+        super(dataBinding.getRoot());
         this.views = new SparseArray<>();
         this.dataBinding = DataBindingUtil.getBinding(itemView);
     }
